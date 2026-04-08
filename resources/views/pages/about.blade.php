@@ -259,81 +259,39 @@
         </div>
     </section>
 
-    {{-- PREMIUM TEAM SECTION --}}
+    {{-- FOUNDER SECTION --}}
     <section class="premium-team py-5 bg-light">
         <div class="container">
             <div class="text-center mb-5">
                 <span class="badge bg-success-subtle text-success px-4 py-2 rounded-pill mb-3">
-                    <i class="bi bi-people me-2"></i>The Minds Behind It
+                    <i class="bi bi-person-badge me-2"></i>The Visionary
                 </span>
-                <h2 class="section-title fw-bold mb-3">Meet Our Leadership</h2>
+                <h2 class="section-title fw-bold mb-3">Meet the Founder</h2>
                 <p class="text-muted lead mx-auto" style="max-width: 600px;">
-                    Passionate individuals dedicated to transforming African job markets
+                    Driven by a mission to bridge the gap in the African job market through innovative technology.
                 </p>
             </div>
 
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-image-wrapper">
-                            <img src="https://placehold.co/300x300/10b981/white?text=CEO" alt="Team Member"
-                                class="team-image">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="team-card text-center">
+                        <div class="team-image-wrapper mx-auto">
+                            <img src="{{ asset('images/Dave-Enyi.jpg') }}" alt="Dave - Founder" class="team-image">
                             <div class="team-social">
-                                <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
-                                <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+                                <a href="https://www.linkedin.com/in/david-enyi-631aa2109/" class="social-icon"><i
+                                        class="bi bi-linkedin"></i></a>
+                                <a href="https://x.com/dave_sleek1" class="social-icon"><i
+                                        class="bi bi-twitter-x"></i></a>
+                                <a href="https://github.com/Dave-Sleek" class="social-icon"><i
+                                        class="bi bi-github"></i></a>
                             </div>
                         </div>
-                        <h5 class="fw-bold mt-3 mb-1">Oluwaseun Adebayo</h5>
-                        <p class="text-success small mb-2">Founder & CEO</p>
-                        <p class="text-muted small">10+ years in tech recruitment</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-image-wrapper">
-                            <img src="https://placehold.co/300x300/047857/white?text=CTO" alt="Team Member"
-                                class="team-image">
-                            <div class="team-social">
-                                <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
-                                <a href="#" class="social-icon"><i class="bi bi-github"></i></a>
-                            </div>
-                        </div>
-                        <h5 class="fw-bold mt-3 mb-1">Chidi Okonkwo</h5>
-                        <p class="text-success small mb-2">Chief Technology Officer</p>
-                        <p class="text-muted small">Full-stack architect, AI enthusiast</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-image-wrapper">
-                            <img src="https://placehold.co/300x300/10b981/white?text=CMO" alt="Team Member"
-                                class="team-image">
-                            <div class="team-social">
-                                <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
-                                <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
-                            </div>
-                        </div>
-                        <h5 class="fw-bold mt-3 mb-1">Aisha Mohammed</h5>
-                        <p class="text-success small mb-2">Marketing Director</p>
-                        <p class="text-muted small">Brand strategist, growth hacker</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-image-wrapper">
-                            <img src="https://placehold.co/300x300/047857/white?text=CPO" alt="Team Member"
-                                class="team-image">
-                            <div class="team-social">
-                                <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
-                                <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
-                            </div>
-                        </div>
-                        <h5 class="fw-bold mt-3 mb-1">Emeka Nwachukwu</h5>
-                        <p class="text-success small mb-2">Product Lead</p>
-                        <p class="text-muted small">User experience, product innovation</p>
+                        <h4 class="fw-bold mt-4 mb-1">Dave Enyi</h4>
+                        <p class="text-success fw-semibold mb-2">Founder & Lead Developer</p>
+                        <p class="text-muted px-3">
+                            Full-stack architect with a passion for building scalable solutions and empowering the next
+                            generation of African talent.
+                        </p>
                     </div>
                 </div>
             </div>

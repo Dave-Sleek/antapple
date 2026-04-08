@@ -655,7 +655,7 @@
                 </a>
 
                 <!-- Premium Tagline Badge -->
-                <div class="premium-badge-wrapper d-none d-md-block">
+                <div class="premium-badge-wrapper d-md-flex justify-content-end">
                     <div class="premium-badge premium-success-badge">
                         <div class="badge-shine"></div>
                         <span class="badge-icon success-icon">✓</span>
@@ -669,7 +669,7 @@
 
                     @guest
                         <!-- Premium Guest Navigation -->
-                        <a href="{{ route('companies.index') }}" class="companies-button">
+                        {{-- <a href="{{ route('companies.index') }}" class="companies-button">
                             <span class="button-text">Companies</span>
                             <span class="button-icon">→</span>
                             <div class="button-glow"></div>
@@ -679,7 +679,7 @@
                             <span class="button-text">For Employers</span>
                             <span class="button-icon">→</span>
                             <div class="button-glow"></div>
-                        </a>
+                        </a> --}}
                     @endguest
 
                     @auth
@@ -925,7 +925,10 @@
         /* Premium Badge - Success Green Version */
         .premium-badge-wrapper {
             position: relative;
-            overflow: hidden;
+            /* overflow: hidden; */
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
         }
 
         .premium-success-badge {
@@ -1281,7 +1284,7 @@
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .premium-badge-wrapper {
-                display: none;
+                /* display: none; */
             }
 
             .brand-text {

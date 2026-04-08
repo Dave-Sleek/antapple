@@ -84,12 +84,10 @@
         </div>
 
 
-
         @php
             $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
             $shareText = $job->title . ' at ' . $job->company_name;
         @endphp
-
 
         {{-- Location Badge --}}
         {{-- Meta Badges --}}
@@ -145,35 +143,10 @@
 
 
         {{-- Description --}}
-        {{-- <p class="text-muted small mb-4 flex-grow-1">
+        <p class="text-muted small mb-4 flex-grow-1">
             {{ Str::limit(html_entity_decode(strip_tags($job->short_description)), 300) }}
-        </p> --}}
+        </p>
 
-        {{-- Description --}}
-        <div class="mb-4">
-            <p class="text-muted small flex-grow-1">
-                {{ Str::limit(html_entity_decode(strip_tags($job->short_description), ENT_QUOTES, 'UTF-8'), 300) }}
-                @if (strlen(html_entity_decode(strip_tags($job->short_description), ENT_QUOTES, 'UTF-8')) > 300)
-                    <a href="#" class="text-decoration-none" data-bs-toggle="collapse"
-                        data-bs-target="#collapseDescription{{ $job->id }}" aria-expanded="false"
-                        aria-controls="collapseDescription{{ $job->id }}">
-                        Read more
-                    </a>
-                @endif
-            </p>
-
-            <div class="collapse" id="collapseDescription{{ $job->id }}">
-                <div class="card card-body bg-light p-3 mt-2">
-                    <p class="text-muted small mb-0">
-                        {!! $job->short_description !!}
-                    </p>
-                    <a href="#" class="text-decoration-none mt-2" data-bs-toggle="collapse"
-                        data-bs-target="#collapseDescription{{ $job->id }}">
-                        Show less
-                    </a>
-                </div>
-            </div>
-        </div>
 
         {{-- CTA & Salary --}}
         <div class="d-flex justify-content-between align-items-center mt-auto">
