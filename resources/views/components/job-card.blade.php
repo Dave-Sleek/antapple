@@ -24,7 +24,7 @@
 @endif
 
 
-<div class="card border-0 h-100 overflow-hidden rounded-4 position-relative">
+<div class="card border-0 overflow-hidden rounded-4 position-relative">
     {{-- Gradient Background --}}
     <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-success opacity-5"></div>
 
@@ -143,9 +143,46 @@
 
 
         {{-- Description --}}
-        <p class="text-muted small mb-4 flex-grow-1">
+        {{-- Card description — always show truncated --}}
+        @php
+            $shortDesc = html_entity_decode(strip_tags($job->short_description), ENT_QUOTES, 'UTF-8');
+            $truncated = Str::limit($shortDesc, 300);
+            $isTruncated = strlen($shortDesc) > 300;
+        @endphp
+
+        <div class="job-description">
+            <p class="text-muted small mb-0">{{ $truncated }}</p>
+            @if ($isTruncated)
+                <button class="accordion-toggle" data-bs-toggle="modal" data-bs-target="#jobModal{{ $job->id }}">
+                    Read more <span class="accordion-icon">▾</span>
+                </button>
+            @endif
+        </div>
+
+        <style>
+            .accordion-toggle {
+                background: none;
+                border: none;
+                padding: 6px 0;
+                color: #0d6efd;
+                font-size: 0.875rem;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .accordion-icon {
+                font-size: 1rem;
+                line-height: 1;
+            }
+        </style>
+
+
+        {{-- <p class="text-muted small mb-4 flex-grow-1">
             {{ Str::limit(html_entity_decode(strip_tags($job->short_description)), 300) }}
-        </p>
+        </p> --}}
 
 
         {{-- CTA & Salary --}}
@@ -219,6 +256,72 @@
 
     </div>
 </div>
+
+{{-- Modal --}}
+@if ($isTruncated)
+    <div class="modal fade" id="jobModal{{ $job->id }}" tabindex="-1"
+        aria-labelledby="jobModalLabel{{ $job->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content rounded-4 border-0 shadow">
+
+                <div class="modal-header border-0 pb-0">
+                    <div>
+                        <h5 class="modal-title fw-bold" id="jobModalLabel{{ $job->id }}">
+                            {{-- Logo --}}
+                            @if ($job->company_logo)
+                                <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
+                                    class="rounded-circle border border-success border-2"
+                                    style="width: 40px; height: 40px; object-fit: cover;">
+                            @endif
+                            {{ $job->title }}
+                        </h5>
+                        <p class="text-success small mb-0">{{ $job->company_name }}
+                            {{-- {-- ✅ Verified Tick --} --}}
+                            @if ($job->is_verified)
+                                <i class="bi bi-patch-check-fill text-primary" title="Verified Company"
+                                    style="font-size: 14px;"></i>
+                            @endif
+                        </p>
+                        <small class="text-muted" style="font-size: 12px;">
+                            <i class="bi bi-clock me-1"></i>
+                            {{ $job->created_at->diffForHumans() }}
+                        </small>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body pt-2">
+                    <div class="text-muted small">
+                        {!! $job->short_description !!}
+                    </div>
+                </div>
+
+                <div class="modal-footer border-0 pt-0">
+                    @if (!$job->isExpired())
+                        <a href="{{ route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]) }}"
+                            class="btn btn-success rounded-pill px-4 w-100">
+                            View Full Job <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    @else
+                        <span class="badge bg-danger text-white rounded-pill px-3 py-2 w-100 text-center">
+                            <i class="bi bi-x-circle me-1"></i> Expired
+                        </span>
+                    @endif
+                </div>
+
+            </div>
+        </div>
+    </div>
+@endif
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.modal').forEach(modal => {
+            // Move every modal to body level so no parent stacking context can trap it
+            document.body.appendChild(modal);
+        });
+    });
+</script>
 
 <script>
     function copyLink(url, btn) {

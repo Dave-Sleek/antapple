@@ -276,7 +276,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="team-card text-center">
                         <div class="team-image-wrapper mx-auto">
-                            <img src="{{ asset('images/Dave-Enyi.jpg') }}" alt="Dave - Founder" class="team-image">
+                            <img src="{{ asset('images/Dave-Enyi.jpg') }}" alt="Dave Enyi - Founder" class="team-image">
                             <div class="team-social">
                                 <a href="https://www.linkedin.com/in/david-enyi-631aa2109/" class="social-icon"><i
                                         class="bi bi-linkedin"></i></a>
@@ -387,9 +387,9 @@
                         Explore Jobs
                         <i class="bi bi-arrow-right ms-2"></i>
                     </a>
-                    <a href="{{ route('pricing') }}" class="btn-cta-secondary">
+                    <a href="#" class="btn-cta-secondary">
                         <i class="bi bi-building me-2"></i>
-                        Post a Job
+                        Post a Job (Coming soon...)
                     </a>
                 </div>
                 <div class="cta-stats mt-5">

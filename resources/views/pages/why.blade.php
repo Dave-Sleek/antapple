@@ -430,9 +430,9 @@
                         Browse Jobs
                         <i class="bi bi-arrow-right ms-2"></i>
                     </a>
-                    <a href="{{ route('employer.create') }}" class="btn-cta-secondary">
+                    <a href="#" class="btn-cta-secondary">
                         <i class="bi bi-building me-2"></i>
-                        Post a Job
+                        Post a Job (Coming soon...)
                     </a>
                 </div>
                 <div class="cta-footer mt-5">

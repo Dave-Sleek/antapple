@@ -12,9 +12,14 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
 
-    <link rel="manifest" href="/manifest.json">
+
     <meta name="theme-color" content="#198754">
-    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
 
 
     @yield('meta')
@@ -644,14 +649,14 @@
                 <a class="navbar-brand d-flex align-items-center gap-3" href="/jobs">
                     <div class="logo-wrapper position-relative">
                         <div class="logo-glow"></div>
-                        <img src="{{ asset('images/logo.svg') }}" class="premium-logo"
-                            style="height:42px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+                        <img src="{{ asset('images/antapple_logo.png') }}" class="premium-logo"
+                            style="height:52px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
                     </div>
-                    <div class="brand-text">
-                        <span class="brand-primary">Ant</span>
+                    {{-- <div class="brand-text">
+                        <span class="brand-primary">AntApple</span>
                         <span class="brand-secondary">Apple</span>
                         <span class="brand-jobs">Jobs</span>
-                    </div>
+                    </div> --}}
                 </a>
 
                 <!-- Premium Tagline Badge -->
@@ -1788,8 +1793,11 @@
                 <div class="col-lg-4 col-md-6">
 
                     <div class="d-flex align-items-center mb-3">
-                        <img src="{{ asset('images/logo.png') }}" style="height:40px;" class="me-2">
-                        <h5 class="fw-bold mb-0">AntApple Jobs</h5>
+                        {{-- <img src="{{ asset('images/logo.svg') }}" style="height:40px;" class="me-2"> --}}
+                        <img src="{{ asset('images/antapple_logo.png') }}" class="premium-logo"
+                            style="height:60px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+
+                        {{-- <h5 class="fw-bold mb-0">AntApple Jobs</h5> --}}
                     </div>
 
                     <p class="text-muted small">
@@ -1856,11 +1864,11 @@
                                 Why AntApple
                             </a>
                         </li>
-                        <li class="mb-1">
+                        {{-- <li class="mb-1">
                             <a href="{{ route('pricing') }}" class="text-decoration-none text-muted footer-link">
                                 Post a Job
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="mb-1">
                             <a href="/contact" class="text-decoration-none text-muted footer-link">
                                 Contact
