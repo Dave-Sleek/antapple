@@ -84,6 +84,20 @@ class AdminUserController extends Controller
         return view('admin.users.create', compact('roles'));
     }
 
+    public function show(User $user)
+    {
+
+        $subscription = $user->subscription;
+
+        $expiresAt = $subscription?->ends_at;
+
+        $daysLeft = $expiresAt ? now()->diffInDays($expiresAt, false) : null;
+        // Optional: load relationships
+        $user->load(['jobs', 'subscription']);
+
+        return view('admin.users.show', compact('user', 'expiresAt', 'daysLeft'));
+    }
+
     // Store new user
     public function store(Request $request)
     {

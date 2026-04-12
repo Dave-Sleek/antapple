@@ -364,6 +364,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Protected routes
     Route::resource('jobs', AdminJobController::class);
     Route::resource('users', AdminUserController::class);
+    // Route::get('/users/{user}', [AdminUserController::class, 'show'])
+    //     ->name('admin.users.show');
 
 
     Route::get('/dashboard-stats', [AdminController::class, 'stats'])->name('dashboard.stats');
