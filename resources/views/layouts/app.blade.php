@@ -1420,6 +1420,21 @@
                         class="needs-validation" novalidate>
                         @csrf
 
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">What do you want alerts for?</label>
+
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="alert_type" value="job"
+                                    id="alertJob" checked>
+                                <label class="btn btn-outline-success" for="alertJob">Jobs</label>
+
+                                <input type="radio" class="btn-check" name="alert_type" value="opportunity"
+                                    id="alertOpportunity">
+                                <label class="btn btn-outline-success" for="alertOpportunity">Opportunities</label>
+                            </div>
+                        </div>
+
                         {{-- Email Field --}}
                         <div class="mb-4">
                             <label for="alertEmail"
@@ -1443,24 +1458,44 @@
 
                         {{-- Category Field --}}
                         <div class="mb-4">
-                            <label for="alertCategory"
-                                class="form-label fw-semibold text-dark d-flex align-items-center gap-2">
-                                <i class="bi bi-folder text-success"></i>
-                                <span>Job Category</span>
-                            </label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-success-soft border-success-subtle">
+                            <div id="jobCategoryField">
+
+                                <label for="alertCategory"
+                                    class="form-label fw-semibold text-dark d-flex align-items-center gap-2">
                                     <i class="bi bi-folder text-success"></i>
-                                </span>
-                                <select name="category_id" id="alertCategory"
-                                    class="form-select border-success-subtle py-3">
-                                    <option value="" class="text-muted">All Categories</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
+                                    <span>Job Category</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-success-soft border-success-subtle">
+                                        <i class="bi bi-folder text-success"></i>
+                                    </span>
+                                    <select name="category_id" id="alertCategory"
+                                        class="form-select border-success-subtle py-3">
+                                        <option value="" class="text-muted">All Categories</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <small class="text-muted mt-1 d-block">Optional - filter by specific category</small>
+                            </div>
+
+
+                            {{-- Opportunity Type --}}
+                            <div class="mb-4" id="opportunityTypeField" style="display:none;">
+                                <label class="form-label fw-semibold">
+                                    <i class="bi bi-stars text-success"></i>
+                                    Opportunity Type
+                                </label>
+
+                                <select name="opportunity_type" class="form-select">
+                                    <option value="">All Opportunities</option>
+                                    <option value="internship">Internship</option>
+                                    <option value="scholarship">Scholarship</option>
+                                    <option value="grant">Grant</option>
+                                    <option value="graduate_program">Graduate Program</option>
                                 </select>
                             </div>
-                            <small class="text-muted mt-1 d-block">Optional - filter by specific category</small>
                         </div>
 
                         {{-- Location Field --}}
@@ -1728,6 +1763,31 @@
             transform: translateY(-2px);
         }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const jobRadio = document.getElementById('alertJob');
+            const oppRadio = document.getElementById('alertOpportunity');
+
+            const jobField = document.getElementById('jobCategoryField');
+            const oppField = document.getElementById('opportunityTypeField');
+
+            function toggleFields() {
+                if (oppRadio.checked) {
+                    jobField.style.display = 'none';
+                    oppField.style.display = 'block';
+                } else {
+                    jobField.style.display = 'block';
+                    oppField.style.display = 'none';
+                }
+            }
+
+            jobRadio.addEventListener('change', toggleFields);
+            oppRadio.addEventListener('change', toggleFields);
+
+            toggleFields(); // initial
+        });
+    </script>
 
 
 

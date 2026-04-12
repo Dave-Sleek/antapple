@@ -16,7 +16,9 @@ class JobAlertController extends Controller
     {
         $data = $request->validate([
             'email'        => 'required|email',
+            'alert_type' => 'required|in:job,opportunity',
             'category_id'  => 'nullable|exists:categories,id',
+            'opportunity_type' => 'nullable|string',
             'location'     => 'nullable|string|max:255',
             'remote_only'  => 'nullable|boolean',
             'frequency'    => 'nullable|in:daily,weekly,instant',

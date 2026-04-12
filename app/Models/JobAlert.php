@@ -9,9 +9,11 @@ class JobAlert extends Model
     protected $fillable = [
         'email',
         'category_id',
+        'opportunity_type',
         'location',
         'remote_only',
         'frequency',
+        'alert_type',
         'is_active',
         'unsubscribe_token',
         'last_sent_at'

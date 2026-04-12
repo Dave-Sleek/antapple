@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\JobAlert;
 use App\Mail\JobAlertMail;
+use App\Mail\OpportunityAlertMail;
+use App\Models\Opportunity;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -181,7 +183,9 @@ class AdminJobController extends Controller
         /*
         | Email alerts (queue)
         */
-        $alerts = JobAlert::where('is_active', true)->get();
+        // $alerts = JobAlert::where('is_active', true)->get();
+        $alerts = JobAlert::where('is_active', true)
+            ->where('alert_type', 'job')->get();
 
         foreach ($alerts as $alert) {
             Mail::to($alert->email)

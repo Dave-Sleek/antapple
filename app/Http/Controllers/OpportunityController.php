@@ -26,15 +26,62 @@ class OpportunityController extends Controller
             $query->where('location', 'like', "%{$request->location}%");
         }
 
+        // 🔥 CATEGORY COUNTS
+        $typeCounts = Opportunity::where('is_active', true)
+        ->selectRaw('type, COUNT(*) as total')
+        ->groupBy('type')
+        ->pluck('total', 'type');
+
         $opportunities = $query->latest()->paginate(12)->withQueryString();
 
-        return view('opportunities.index', compact('opportunities'));
+        return view('opportunities.index', compact('opportunities', 'typeCounts'));
     }
 
     public function show($uuid, $slug)
     {
         $opportunity = Opportunity::where('uuid', $uuid)->firstOrFail();
 
-        return view('opportunities.show', compact('opportunity'));
+        /*
+        |--------------------------------------------------------------------------
+        | SIMILAR OPPORTUNITIES (same type + location)
+        |--------------------------------------------------------------------------
+        */
+        $similarOpportunities = Opportunity::where('id', '!=', $opportunity->id)
+            ->where('type', $opportunity->type)
+            ->when($opportunity->location, function ($q) use ($opportunity) {
+                $q->where('location', 'like', "%{$opportunity->location}%");
+            })
+            ->latest()
+            ->take(10)
+            ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | RELATED OPPORTUNITIES (based on tags)
+        |--------------------------------------------------------------------------
+        */
+        $relatedOpportunities = collect();
+
+        if (!empty($opportunity->tags)) {
+
+            $tags = array_map('trim', explode(',', $opportunity->tags));
+
+            $relatedOpportunities = Opportunity::where('id', '!=', $opportunity->id)
+                ->where(function ($query) use ($tags) {
+                    foreach ($tags as $tag) {
+                        $query->orWhere('tags', 'like', "%{$tag}%");
+                    }
+                })
+                ->latest()
+                ->take(10)
+                ->get();
+        }
+
+        return view('opportunities.show', compact(
+            'opportunity',
+            'similarOpportunities',
+            'relatedOpportunities'
+        ));
     }
 }

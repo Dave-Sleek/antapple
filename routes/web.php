@@ -321,7 +321,6 @@ Route::get('/jobs/{job}/pay', [PaymentController::class, 'initialize'])->name('j
 
 Route::get('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
 
-
 // Route::post('/jobs/{job}/report', [ReportController::class, 'store']);
 Route::post('/jobs/{job}/report', [App\Http\Controllers\ReportController::class, 'store'])->name('jobs.report');
 

@@ -25,7 +25,7 @@
 
     {{-- Image --}}
     @if ($item->image)
-        <img src="{{ asset(str_replace('storage/', 'storage/', $item->image)) }}" class="img-fluid rounded mb-2"
+        <img src="{{ asset($item->image) }}" class="img-fluid rounded mb-2"
             style="height: 180px; width: 100%; object-fit: cover;">
     @endif
 

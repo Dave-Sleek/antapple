@@ -57,10 +57,8 @@
 
                     @if ($opportunity->image)
                         {{-- <img src="{{ asset('storage/' . $opportunity->image) }}" class="img-fluid rounded mb-3"> --}}
-                        @if ($opportunity->image)
-                            <img src="{{ asset(str_replace('storage/', 'storage/', $opportunity->image)) }}"
-                                class="img-fluid rounded mb-2" style="height: 180px; width: 100%; object-fit: cover;">
-                        @endif
+                        <img src="{{ $opportunity->image ? asset('storage/' . $opportunity->image) : asset('images/default.png') }}"
+                            class="img-fluid rounded mb-2 w-100">
                     @endif
                     <h1 class="opportunity-title">{{ $opportunity->title }}</h1>
 
@@ -590,7 +588,7 @@
     /* Share Section */
     .share-section {
         padding: 1rem;
-        background: #f8fafc;
+        background: #ffffff;
         border-radius: 60px;
         display: flex;
         align-items: center;
@@ -600,7 +598,7 @@
     }
 
     .share-label {
-        color: #64748b;
+        color: #ffffff;
         font-size: 0.9rem;
     }
 
@@ -625,22 +623,28 @@
 
     .share-btn.facebook {
         background: #1877F2;
+        color: ffffff;
     }
 
     .share-btn.twitter {
         background: #000000;
+        color: ffffff;
     }
 
     .share-btn.linkedin {
         background: #0A66C2;
+        color: ffffff;
+
     }
 
     .share-btn.whatsapp {
         background: #25D366;
+        color: ffffff;
     }
 
     .share-btn.copy {
         background: #64748b;
+        color: ffffff;
     }
 
     .share-btn:hover {

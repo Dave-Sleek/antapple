@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Opportunity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class OpportunityController extends Controller
 {
@@ -36,6 +38,8 @@ class OpportunityController extends Controller
         'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
     ]);
 
+        $data['user_id'] = auth::id();
+
     // 🖼 IMAGE UPLOAD
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('opportunities', 'public');
@@ -47,6 +51,27 @@ class OpportunityController extends Controller
         $data['slug'] = Str::slug($data['title']);
 
         Opportunity::create($data);
+
+
+        $opportunity = Opportunity::create($data);
+
+if ($opportunity && config('services.telegram.bot_token')) {
+
+    $message = "🎯 *New Opportunity*\n\n"
+        . "*{$opportunity->title}*\n"
+        . "🏢 {$opportunity->organization}\n"
+        . "📍 {$opportunity->location}\n"
+        . "🔗 " . route('opportunities.show', [$opportunity->uuid, $opportunity->slug]);
+
+    Http::post(
+        "https://api.telegram.org/bot" . config('services.telegram.bot_token') . "/sendMessage",
+        [
+            'chat_id' => config('services.telegram.chat_id'),
+            'text' => $message,
+            'parse_mode' => 'Markdown'
+        ]
+    );
+}
 
         return redirect()->route('admin.opportunities.index')
             ->with('success', 'Opportunity created successfully.');
@@ -71,6 +96,8 @@ class OpportunityController extends Controller
         'apply_url' => 'nullable|url',
         'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
     ]);
+
+        $data['user_id'] = auth::id();
 
     // 🖼 Replace image if new one uploaded
         if ($request->hasFile('image')) {

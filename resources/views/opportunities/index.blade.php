@@ -201,6 +201,11 @@
                             </div>
                         @endif
 
+                        @if ($item->image)
+                            <img src="{{ $item->image ? asset('storage/' . $item->image) : asset('images/default.png') }}"
+                                class="img-fluid rounded mb-2 w-100">
+                        @endif
+
                         {{-- Content --}}
                         <div class="card-body">
                             <h3 class="opportunity-title">{{ $item->title }}</h3>
@@ -222,7 +227,7 @@
 
                             {{-- Description --}}
                             <p class="opportunity-description">
-                                {{ Str::limit(strip_tags($item->description ?? $item->short_description), 120) }}
+                                {{ Str::limit(strip_tags($item->description ?? $item->short_description), 200) }}
                             </p>
 
                             {{-- Details Row --}}
@@ -271,7 +276,7 @@
             @endif
 
             {{-- Newsletter CTA --}}
-            <div class="newsletter-cta mt-5">
+            {{-- <div class="newsletter-cta mt-5">
                 <div class="row align-items-center">
                     <div class="col-md-7">
                         <div class="d-flex align-items-center gap-3">
@@ -296,7 +301,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         @else
             {{-- Premium Empty State --}}
             <div class="empty-state-premium">
