@@ -39,6 +39,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\Admin\UserLogController;
 use App\Http\Controllers\Admin\SystemStatusController;
+use App\Http\Controllers\OpportunityController;
+use App\Http\Controllers\Admin\OpportunityController as AdminOpportunityController;
 
 
 Route::get('/', [JobController::class, 'index']);
@@ -119,6 +121,12 @@ Route::post('/reset-password', function (Request $request) {
         ? redirect()->route('login')->with('success', 'Password reset successful')
         : back()->withErrors(['email' => 'Invalid reset token']);
 })->name('password.update');
+
+Route::get('/opportunities', [OpportunityController::class, 'index'])
+    ->name('opportunities.index');
+
+Route::get('/opportunities/{uuid}/{slug}', [OpportunityController::class, 'show'])
+    ->name('opportunities.show');
 
 /*
 |--------------------------------------------------------------------------
@@ -394,6 +402,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
             'app' => config('app.name'),
         ]);
     })->name('system.status');
+
+    Route::resource('/opportunities', AdminOpportunityController::class);
 });
 
 Route::middleware(['auth', 'editor'])->group(function () {

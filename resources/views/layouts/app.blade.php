@@ -660,7 +660,7 @@
                 </a>
 
                 <!-- Premium Tagline Badge -->
-                <div class="premium-badge-wrapper d-md-flex justify-content-end">
+                <div class="premium-badge-wrapper d-md-flex justify-content-center">
                     <div class="premium-badge premium-success-badge">
                         <div class="badge-shine"></div>
                         <span class="badge-icon success-icon">✓</span>
@@ -669,7 +669,7 @@
                     </div>
                 </div>
 
-                <!-- Premium Navigation Right -->
+                <!-- Premium Navigation Right justify-content-end -->
                 <div class="d-flex align-items-center gap-3">
 
                     @guest
@@ -685,6 +685,11 @@
                             <span class="button-icon">→</span>
                             <div class="button-glow"></div>
                         </a> --}}
+                        <a href="{{ route('opportunities.index') }}" class="premium-button">
+                            <span class="button-text">Opportunities</span>
+                            <span class="button-icon">→</span>
+                            <div class="button-glow"></div>
+                        </a>
                     @endguest
 
                     @auth
@@ -1289,7 +1294,7 @@
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .premium-badge-wrapper {
-                /* display: none; */
+                display: none;
             }
 
             .brand-text {

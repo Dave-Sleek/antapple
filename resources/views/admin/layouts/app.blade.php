@@ -505,7 +505,12 @@
                         $adminLinks = [
                             ['route' => 'admin.dashboard', 'icon' => 'bi-speedometer2', 'label' => 'Dashboard'],
                             ['route' => 'admin.jobs.pending', 'icon' => 'bi-clock', 'label' => 'Pending Jobs'],
-                            ['route' => 'admin.jobs.index', 'icon' => 'bi-briefcase', 'label' => 'Jobs'],
+                            ['route' => 'admin.jobs.index', 'icon' => 'bi-briefcase', 'label' => 'Jobs Overview'],
+                            [
+                                'route' => 'admin.opportunities.index',
+                                'icon' => 'bi-briefcase',
+                                'label' => 'Opportunities',
+                            ],
                             ['route' => 'admin.users.employers', 'icon' => 'bi-people', 'label' => 'Manage Employers'],
                             [
                                 'route' => 'admin.users.index',
