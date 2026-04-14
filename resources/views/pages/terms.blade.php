@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', $seo['title'] ?? 'Terms of Use - AntApple Jobs')
+@section('title', $seo['title'] ?? 'Terms of Use - Sproutplex Jobs')
 @section('description',
     $seo['description'] ??
-    'Review the terms and conditions for using AntApple Jobs platform.
+    'Review the terms and conditions for using Sproutplex Jobs platform.
     Understand your rights and responsibilities as a user.')
 
 @section('content')
@@ -17,7 +17,7 @@
                         </span>
                     </div>
                     <h1 class="display-4 fw-bold mb-3">Terms of <span class="text-gradient">Use</span></h1>
-                    <p class="lead text-muted mb-4">Please read these terms carefully before using AntApple Jobs</p>
+                    <p class="lead text-muted mb-4">Please read these terms carefully before using Sproutplex Jobs</p>
                     <div class="last-updated">
                         <i class="bi bi-calendar-check me-2"></i>
                         Last updated: {{ date('F d, Y') }}
@@ -36,7 +36,7 @@
                     <div class="acceptance-card mb-5">
                         <i class="bi bi-hand-index-thumb"></i>
                         <div>
-                            <h5 class="fw-bold mb-2">By using AntApple Jobs, you agree to these Terms</h5>
+                            <h5 class="fw-bold mb-2">By using Sproutplex Jobs, you agree to these Terms</h5>
                             <p class="mb-0 text-muted">If you do not agree with any part of these terms, please discontinue
                                 use of our platform.</p>
                         </div>
@@ -54,7 +54,7 @@
                                 <i class="bi bi-chevron-down"></i>
                             </label>
                             <div class="term-content">
-                                <p>AntApple Jobs is a job aggregation platform. We:</p>
+                                <p>Sproutplex Jobs is a job aggregation platform. We:</p>
                                 <ul>
                                     <li>List job opportunities from various sources</li>
                                     <li>Link users directly to official company career pages</li>
@@ -78,7 +78,7 @@
                                 <i class="bi bi-chevron-down"></i>
                             </label>
                             <div class="term-content">
-                                <p>As a user of AntApple Jobs, you agree to:</p>
+                                <p>As a user of Sproutplex Jobs, you agree to:</p>
                                 <div class="responsibilities-grid">
                                     <div class="resp-item">
                                         <i class="bi bi-check-circle-fill text-success"></i>
@@ -144,7 +144,7 @@
                                 <i class="bi bi-chevron-down"></i>
                             </label>
                             <div class="term-content">
-                                <p>All content on AntApple Jobs (excluding third-party job listings) is owned by us and
+                                <p>All content on Sproutplex Jobs (excluding third-party job listings) is owned by us and
                                     protected by copyright laws. This includes:</p>
                                 <ul>
                                     <li>Website design and layout</li>
@@ -166,7 +166,7 @@
                                 <i class="bi bi-chevron-down"></i>
                             </label>
                             <div class="term-content">
-                                <p>To the maximum extent permitted by law, AntApple Jobs shall not be liable for:</p>
+                                <p>To the maximum extent permitted by law, Sproutplex Jobs shall not be liable for:</p>
                                 <ul>
                                     <li>Any loss or damage from job applications</li>
                                     <li>Disputes between users and employers</li>
@@ -197,14 +197,15 @@
 
                     {{-- Agreement Footer --}}
                     <div class="agreement-footer mt-5">
-                        <p class="text-muted text-center">By continuing to use AntApple Jobs, you acknowledge that you have
+                        <p class="text-muted text-center">By continuing to use Sproutplex Jobs, you acknowledge that you
+                            have
                             read, understood, and agree to these Terms of Use.</p>
                         <div class="footer-actions">
                             <a href="{{ route('jobs.index') }}" class="btn-agree">
                                 <i class="bi bi-check-circle me-2"></i>
                                 I Agree & Continue
                             </a>
-                            <a href="mailto:support@antapple.com" class="btn-contact">Contact Support</a>
+                            <a href="mailto:support@Sproutplex.com" class="btn-contact">Contact Support</a>
                         </div>
                     </div>
                 </div>

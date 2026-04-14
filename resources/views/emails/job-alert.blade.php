@@ -18,7 +18,7 @@
                     {{-- HEADER --}}
                     <tr>
                         <td align="center" style="background:#16a34a; padding:28px; color:#ffffff;">
-                            <h1 style="margin:0; font-size:22px;">🍏 AntApple Jobs</h1>
+                            <h1 style="margin:0; font-size:22px;">🍏 Sproutplex Jobs</h1>
                             <p style="margin:6px 0 0; font-size:14px;">
                                 Fresh jobs matching your alert
                             </p>
@@ -192,7 +192,7 @@
                         <td align="center" style="background:#f9fafb; padding:20px; font-size:12px; color:#6b7280;">
 
                             <p style="margin:0 0 6px;">
-                                You’re receiving this because you subscribed to AntApple Job Alerts.
+                                You’re receiving this because you subscribed to Sproutplex Job Alerts.
                             </p>
 
                             <p style="margin:0;">
@@ -207,7 +207,7 @@
                             </p>
 
                             <p style="margin-top:10px; font-size:11px;">
-                                © {{ date('Y') }} AntApple Jobs · Abuja, Nigeria
+                                © {{ date('Y') }} Sproutplex Jobs · Abuja, Nigeria
                             </p>
                         </td>
                     </tr>

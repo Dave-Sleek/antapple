@@ -10,8 +10,8 @@ class PageController extends Controller
     public function privacy()
     {
         $seo = [
-            'title' => 'Privacy Policy - AntApple Jobs',
-            'description' => 'Learn how AntApple Jobs collects, uses, and protects your information. Verified jobs only.'
+            'title' => 'Privacy Policy - Sproutplex Jobs',
+            'description' => 'Learn how Sproutplex Jobs collects, uses, and protects your information. Verified jobs only.'
         ];
         return view('pages.privacy', compact('seo'));
     }
@@ -19,8 +19,8 @@ class PageController extends Controller
     public function terms()
     {
         $seo = [
-            'title' => 'Terms of Use - AntApple Jobs',
-            'description' => 'Read the AntApple Jobs Terms of Use. Verified jobs only, official company links only.'
+            'title' => 'Terms of Use - Sproutplex Jobs',
+            'description' => 'Read the Sproutplex Jobs Terms of Use. Verified jobs only, official company links only.'
         ];
         return view('pages.terms', compact('seo'));
     }
@@ -28,8 +28,8 @@ class PageController extends Controller
     public function cookies()
     {
         $seo = [
-            'title' => 'Cookies Policy - AntApple Jobs',
-            'description' => 'Understand how AntApple Jobs uses cookies to enhance your experience and deliver job alerts.'
+            'title' => 'Cookies Policy - Sproutplex Jobs',
+            'description' => 'Understand how Sproutplex Jobs uses cookies to enhance your experience and deliver job alerts.'
         ];
         return view('pages.cookies', compact('seo'));
     }
@@ -37,8 +37,8 @@ class PageController extends Controller
     public function about()
     {
         $seo = [
-            'title' => 'About Us - AntApple Jobs',
-            'description' => 'Learn about AntApple Jobs, our mission to deliver verified job opportunities directly from official company websites.'
+            'title' => 'About Us - Sproutplex Jobs',
+            'description' => 'Learn about Sproutplex Jobs, our mission to deliver verified job opportunities directly from official company websites.'
         ];
         return view('pages.about', compact('seo'));
     }
@@ -46,8 +46,8 @@ class PageController extends Controller
     public function contact()
     {
         $seo = [
-            'title' => 'Contact Us - AntApple Jobs',
-            'description' => 'Get in touch with AntApple Jobs. Send us questions, suggestions, or feedback.'
+            'title' => 'Contact Us - Sproutplex Jobs',
+            'description' => 'Get in touch with Sproutplex Jobs. Send us questions, suggestions, or feedback.'
         ];
         return view('pages.contact', compact('seo'));
     }
@@ -55,8 +55,8 @@ class PageController extends Controller
     public function why()
     {
         $seo = [
-            'title' => 'Why Choose AntApple Jobs? - AntApple Jobs',
-            'description' => 'Discover why AntApple Jobs is the best choice for job seekers. Verified jobs only, official company links only.'
+            'title' => 'Why Choose Sproutplex Jobs? - Sproutplex Jobs',
+            'description' => 'Discover why Sproutplex Jobs is the best choice for job seekers. Verified jobs only, official company links only.'
         ];
         return view('pages.why', compact('seo'));
     }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'AntApple – Verified Job Opportunities')
+@section('title', 'Sproutplex – Verified Job Opportunities')
 
 @section('content')
 
@@ -15,32 +15,62 @@
         </div> --}}
 
         {{-- Hero Header --}}
-        <section class="py-5 bg-light border-bottom" style="background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-">
-            <div class="container text-center">
+        <section class="hero-bg text-white d-flex align-items-center justify-content-center">
+            <div class="container text-center position-relative z-1">
 
-                {{-- Headline --}}
-                <h1 class="fw-bold display-5 mb-3 text-dark">
-                    Find Your Next Opportunity
+                {{-- Optional: Add logo back with animation --}}
+                @if (false)
+                    {{-- Set to true if you want to show the logo --}}
+                    <img src="{{ asset('images/sprout_logo.png') }}" class="premium-logo mb-4"
+                        style="height:70px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+                @endif
+
+                {{-- Headline - larger display-1 --}}
+                <h1 class="fw-bold display-1 mb-3" style="font-family: 'Open Sans', sans-serif;">
+                    Discover Verified Opportunities That Move You {{-- <i class="fa fa-forward" aria-hidden="true"></i> --}}
                 </h1>
 
-                {{-- Subtext --}}
-                <p class="lead text-muted mb-4">
-                    Hand-picked, verified jobs from trusted companies
+                {{-- Subtext - larger fs-3 --}}
+                <p class="fs-3 mb-4" style="font-family: 'Open Sans', sans-serif;">
+                    Curated opportunities to help you grow faster.
                 </p>
 
+                <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-4 mt-3">
+                    <a href="#jobs"
+                        class="premium-button btn btn-success w-auto d-inline-flex align-items-center gap-3 px-4 py-3 rounded-pill shadow-sm">
+                        <span class="button-text">Get Started</span>
+                        <span class="button-icon"><i class="fas fa-briefcase"></i></span>
+                        <div class="button-glow"></div>
+                    </a>
+
+                    <a href="{{ route('opportunities.index') }}"
+                        class="btn btn-outline-primary w-auto text-white d-inline-flex align-items-center gap-2 px-4 py-3 rounded-pill shadow-sm">
+                        <span class="button-text">Explore Opportunities</span>
+                        <span class="button-icon">→</span>
+                        <div class="button-glow"></div>
+                    </a>
+
+                </div>
+
                 {{-- Trust signals --}}
-                <div class="d-flex justify-content-center flex-wrap gap-3 small text-muted">
-                    <span class="badge bg-success-subtle text-success border border-success">
+                {{-- <div class="d-flex justify-content-center flex-wrap gap-4 mt-4 mb-4">
+                    <span class="badge bg-dark text-white border border-success fs-6 py-2 px-4">
                         ✔ Verified Jobs Only
                     </span>
+                    <span class="badge bg-light text-primary border border-primary fs-6 py-2 px-4">
+                        🚀 Fast Alerts
+                    </span>
+                    <span class="badge bg-dark text-info border border-info fs-6 py-2 px-4">
+                        🌍 Remote Friendly
+                    </span>
+                    <span class="badge bg-dark text-warning border border-warning fs-6 py-2 px-4">
+                        💼 Top Companies
+                    </span>
+                </div> --}}
 
-                    <span>🚀 Fast Alerts</span>
-                    <span>🌍 Remote Friendly</span>
-                    <span>💼 Top Companies</span>
-                </div>
-                <p class="small text-muted mt-3">
-                    Trusted by 1,000+ job seekers weekly
+                {{-- Bottom text --}}
+                <p class="fs-6 mt-4" style="font-family: 'Open Sans', sans-serif;">
+                    Trusted by 1,000+ job seekers weekly <i class="bi bi-people-fill"></i>
                 </p>
 
             </div>
@@ -156,7 +186,7 @@
         @endif --}}
 
 
-        <div class="row g-4">
+        <div id="jobs" class="row g-4">
             @forelse($jobs as $job)
                 <div class="col-lg-6">
                     <x-job-card :job="$job" />
@@ -310,8 +340,9 @@
                                         {{-- Company Logo --}}
                                         <div class="d-flex align-items-center gap-3 mb-3">
                                             @if ($job->company_logo)
-                                                <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
-                                                    class="rounded-3" style="width:50px;height:50px;object-fit:contain;">
+                                                <img src="{{ asset($job->company_logo) }}"
+                                                    alt="{{ $job->company_name }}" class="rounded-3"
+                                                    style="width:50px;height:50px;object-fit:contain;">
                                             @endif
 
                                             <div>

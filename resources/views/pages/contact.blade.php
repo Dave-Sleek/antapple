@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us – AntApple Jobs')
-@section('description', 'Contact AntApple Jobs for support, partnerships, or inquiries.')
+@section('title', 'Contact Us – Sproutplex Jobs')
+@section('description', 'Contact Sproutplex Jobs for support, partnerships, or inquiries.')
 
 @section('content')
     <div class="container py-5">
@@ -41,7 +41,7 @@
                     </div>
                     <h5>Email Us</h5>
                     <p class="text-muted">Our support team is here to help</p>
-                    <a href="mailto:support@antapplejobs.com" class="contact-link">support@antapplejobs.com</a>
+                    <a href="mailto:support@Sproutplexjobs.com" class="contact-link">support@Sproutplexjobs.com</a>
                     <div class="card-glow"></div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="detail-content">
                                     <span class="detail-label">Email Address</span>
-                                    <span class="detail-value">support@antapplejobs.com</span>
+                                    <span class="detail-value">support@Sproutplexjobs.com</span>
                                     <span class="detail-note">We typically respond within 24 hours</span>
                                 </div>
                             </div>
@@ -380,7 +380,7 @@
                     <div class="office-details">
                         <div class="detail">
                             <i class="bi bi-building"></i>
-                            <span>AntApple Jobs Headquarters</span>
+                            <span>Sproutplex Jobs Headquarters</span>
                         </div>
                         <div class="detail">
                             <i class="bi bi-pin-map"></i>
@@ -1119,7 +1119,7 @@
         } else if (type === 'partnership') {
             subjectField.value = 'Partnership Opportunity';
             messageField.value =
-                'I would like to discuss a potential partnership with AntApple Jobs.\n\nCompany: \nProposal: ';
+                'I would like to discuss a potential partnership with Sproutplex Jobs.\n\nCompany: \nProposal: ';
         } else if (type === 'report') {
             subjectField.value = 'Report an Issue';
             messageField.value = 'I would like to report the following issue:\n\nJob ID/URL: \nIssue Details: ';

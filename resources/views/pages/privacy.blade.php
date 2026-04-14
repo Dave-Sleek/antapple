@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', $seo['title'] ?? 'Privacy Policy - AntApple Jobs')
+@section('title', $seo['title'] ?? 'Privacy Policy - Sproutplex Jobs')
 @section('description',
     $seo['description'] ??
-    'Learn how AntApple Jobs protects your privacy and handles your personal
+    'Learn how Sproutplex Jobs protects your privacy and handles your personal
     information with the highest standards of security and transparency.')
 
 @section('content')
@@ -152,7 +152,7 @@
                                 <h2>Third-Party Links</h2>
                             </div>
                             <div class="section-content">
-                                <p>AntApple Jobs links only to official company career pages. We carefully review each
+                                <p>Sproutplex Jobs links only to official company career pages. We carefully review each
                                     destination to ensure legitimacy. However, we are not responsible for the privacy
                                     practices of external websites. We recommend reviewing their policies before submitting
                                     applications.</p>
@@ -195,7 +195,8 @@
                                     <li><i class="bi bi-check-circle-fill text-success"></i> Opt-out of communications</li>
                                 </ul>
                                 <p class="mt-3">To exercise these rights, contact us at <a
-                                        href="mailto:support@antapple.com" class="text-success">support@antapple.com</a></p>
+                                        href="mailto:support@Sproutplex.com" class="text-success">support@Sproutplex.com</a>
+                                </p>
                             </div>
                         </div>
 
@@ -220,7 +221,7 @@
                             <h5 class="fw-bold mb-2">Have Privacy Questions?</h5>
                             <p class="mb-0">Our Data Protection Officer is ready to assist you.</p>
                         </div>
-                        <a href="mailto:privacy@antapple.com" class="btn-contact">Contact DPO</a>
+                        <a href="mailto:privacy@Sproutplex.com" class="btn-contact">Contact DPO</a>
                     </div>
                 </div>
             </div>

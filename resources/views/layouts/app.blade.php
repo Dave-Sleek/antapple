@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'AntApple Jobs')</title>
+    <title>@yield('title', 'Sproutplex Jobs')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="@yield('description', 'Verified jobs with direct links to official company websites.')">
 
@@ -97,6 +97,206 @@
         .btn-telegram:hover {
             background-color: #006699;
             color: #fff;
+        }
+
+        /* Hero Background Section */
+
+        /* Add to your CSS */
+        /* Remove any potential spacing from the first element */
+        .hero-bg {
+            position: relative;
+            background: url('../images/sprout_bg.png') center/cover no-repeat;
+            color: #ffffff;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            margin-left: calc(-50vw + 50%);
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100dvh;
+        }
+
+        /* Full screen on both desktop and mobile */
+
+        /* Fallback for older browsers */
+        @supports not (min-height: 100dvh) {
+            .hero-bg {
+                min-height: 100vh;
+            }
+        }
+
+        /* Ensure html/body are full width */
+        html,
+        body {
+            width: 100%;
+            /* height: 100%; */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Overlay for readability */
+        /* Overlay layer */
+        .hero-bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+            /* or gradient for depth */
+            z-index: 0;
+        }
+
+        /* Ensure content sits above overlay */
+        .hero-bg .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === TYPOGRAPHY WITH ANIMATIONS === */
+
+        /* Keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Main headline */
+        /* Main headline - moderate size with animation */
+        .hero-bg h1 {
+            font-weight: 800 !important;
+            margin-bottom: 1.5rem !important;
+            animation: fadeInUp 0.8s ease-out forwards;
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            /* base scaling */
+        }
+
+        /* Subtext paragraph */
+        .hero-bg .lead {
+            font-size: 1.4rem !important;
+            margin-bottom: 1.75rem !important;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        /* Trust signal badges */
+        .hero-bg .badge {
+            font-size: 0.95rem !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 500;
+            animation: scaleIn 0.5s ease-out forwards;
+            opacity: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-bg .badge:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .hero-bg .badge:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .hero-bg .badge:nth-child(3) {
+            animation-delay: 0.7s;
+        }
+
+        .hero-bg .badge:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .hero-bg .badge:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+
+        /* Bottom trust text */
+        .hero-bg .small {
+            font-size: 0.9rem !important;
+            margin-top: 1rem;
+            animation: fadeIn 1s ease-out 1.1s forwards;
+            opacity: 0;
+        }
+
+        /* Logo animation */
+        .premium-logo {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Desktop adjustments */
+        @media (min-width: 768px) {
+            .hero-bg h1 {
+                font-size: 3.5rem !important;
+            }
+
+            .hero-bg .lead {
+                font-size: 1.6rem !important;
+            }
+        }
+
+        /* Mobile adjustments — bigger heading */
+        @media (max-width: 767px) {
+            .hero-bg h1 {
+                font-size: 3rem !important;
+            }
+
+            /* bumped up */
+            .hero-bg .lead {
+                font-size: 1.35rem !important;
+            }
+
+            .hero-bg .badge {
+                font-size: 0.85rem !important;
+                padding: 0.5rem 1rem !important;
+            }
+
+            .hero-bg .small {
+                font-size: 0.85rem !important;
+            }
+        }
+
+        /* Very large screens */
+        @media (min-width: 1400px) {
+            .hero-bg h1 {
+                font-size: 4rem !important;
+            }
+
+            .hero-bg .lead {
+                font-size: 1.8rem !important;
+            }
         }
     </style>
 
@@ -649,11 +849,11 @@
                 <a class="navbar-brand d-flex align-items-center gap-3" href="/jobs">
                     <div class="logo-wrapper position-relative">
                         <div class="logo-glow"></div>
-                        <img src="{{ asset('images/antapple_logo.png') }}" class="premium-logo"
+                        <img src="{{ asset('images/sprout_logo.png') }}" class="premium-logo"
                             style="height:52px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
                     </div>
                     {{-- <div class="brand-text">
-                        <span class="brand-primary">AntApple</span>
+                        <span class="brand-primary">Sproutplex</span>
                         <span class="brand-secondary">Apple</span>
                         <span class="brand-jobs">Jobs</span>
                     </div> --}}
@@ -685,11 +885,11 @@
                             <span class="button-icon">→</span>
                             <div class="button-glow"></div>
                         </a> --}}
-                        <a href="{{ route('opportunities.index') }}" class="premium-button">
+                        {{-- <a href="{{ route('opportunities.index') }}" class="companies-button">
                             <span class="button-text">Opportunities</span>
                             <span class="button-icon">→</span>
                             <div class="button-glow"></div>
-                        </a>
+                        </a> --}}
                     @endguest
 
                     @auth
@@ -1586,7 +1786,7 @@
                                 Maybe Later
                             </button>
 
-                            <a href="https://t.me/antapplejobs" target="_blank"
+                            <a href="https://t.me/Sproutplexjobs" target="_blank"
                                 class="btn btn-primary d-inline-flex align-items-center">
                                 <i class="bi bi-telegram me-2"></i> Subscribe on Telegram
                             </a>
@@ -1859,14 +2059,14 @@
 
                     <div class="d-flex align-items-center mb-3">
                         {{-- <img src="{{ asset('images/logo.svg') }}" style="height:40px;" class="me-2"> --}}
-                        <img src="{{ asset('images/antapple_logo.png') }}" class="premium-logo"
+                        <img src="{{ asset('images/sprout_logo.png') }}" class="premium-logo"
                             style="height:60px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
 
-                        {{-- <h5 class="fw-bold mb-0">AntApple Jobs</h5> --}}
+                        {{-- <h5 class="fw-bold mb-0">Sproutplex Jobs</h5> --}}
                     </div>
 
                     <p class="text-muted small">
-                        AntApple connects ambitious professionals with verified job opportunities across Nigeria.
+                        Sproutplex connects ambitious professionals with verified job opportunities across Nigeria.
                         We only link directly to official employer websites.
                     </p>
 
@@ -1926,7 +2126,7 @@
                         </li>
                         <li class="mb-1">
                             <a href="{{ route('why') }}" class="text-decoration-none text-muted footer-link">
-                                Why AntApple
+                                Why Sproutplex
                             </a>
                         </li>
                         {{-- <li class="mb-1">
@@ -1965,7 +2165,7 @@
                         Get instant job alerts on Telegram. Join thousands of professionals already inside.
                     </p>
 
-                    <a href="https://t.me/antapplejobs" target="_blank"
+                    <a href="https://t.me/Sproutplexjobs" target="_blank"
                         class="btn btn-outline-primary btn-sm rounded-pill d-flex align-items-center justify-content-center gap-2">
 
                         <i class="bi bi-telegram"></i>
@@ -1986,17 +2186,17 @@
                 class="d-md-flex justify-content-between align-items-center text-center text-md-start small text-muted">
 
                 <div>
-                    © {{ date('Y') }} AntApple Jobs. All rights reserved.
+                    © {{ date('Y') }} Sproutplex Jobs. All rights reserved.
                 </div>
 
                 <div class="mt-3 mt-md-0">
-                    Abuja, Nigeria · support@antapple.com
+                    Abuja, Nigeria · support@Sproutplex.com
                 </div>
 
             </div>
 
             <div class="text-center small text-muted mt-3">
-                AntApple is not a recruitment agency. We aggregate and link to verified employer websites.
+                Sproutplex is not a recruitment agency. We aggregate and link to verified employer websites.
             </div>
 
         </div>
@@ -2016,7 +2216,7 @@
     {{-- <button id="pwaInstallBtn" class="btn btn-success rounded-pill shadow position-fixed"
         style="bottom:20px; center:20px; z-index:9999; display:none;">
         <i class="bi bi-download me-1"></i>
-        Install AntApple Jobs
+        Install Sproutplex Jobs
     </button> --}}
 
 

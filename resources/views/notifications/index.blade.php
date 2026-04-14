@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Notifications - AntApple')
+@section('title', 'Notifications - Sproutplex')
 
 @section('content')
     <div class="container py-5">

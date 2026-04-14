@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>404 - Page Not Found | AntApple Jobs</title>
+    <title>404 - Page Not Found | Sproutplex Jobs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Oops! The page you're looking for doesn't exist. Let's get you back on track.">
 
@@ -611,7 +611,7 @@
                 <!-- Footer Note -->
                 <div style="text-align: center; margin-top: 2rem; color: rgba(255,255,255,0.6); font-size: 0.85rem;">
                     <i class="bi bi-compass me-1"></i>
-                    AntApple Jobs · Let's get you back on track
+                    Sproutplex Jobs · Let's get you back on track
                 </div>
 
             </div>

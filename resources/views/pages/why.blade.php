@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Why AntApple - The Smarter Way to Find Your Dream Job')
+@section('title', 'Why Sproutplex - The Smarter Way to Find Your Dream Job')
 
 @section('content')
 
@@ -24,7 +24,7 @@
                     </div>
 
                     <h1 class="hero-title display-3 fw-bold mb-4 animate__animated animate__fadeInUp">
-                        Why <span class="text-gradient">AntApple?</span>
+                        Why <span class="text-gradient">Sproutplex?</span>
                     </h1>
 
                     <p class="hero-subtitle lead mb-5 mx-auto animate__animated animate__fadeInUp animate__delay-1s"
@@ -67,12 +67,12 @@
                             <i class="bi bi-quote"></i>
                         </div>
                         <p class="intro-text display-6 fw-medium mb-4" style="line-height: 1.4;">
-                            AntApple is more than a job listing platform. We're building
+                            Sproutplex is more than a job listing platform. We're building
                             a smarter ecosystem that connects job seekers with verified employers,
                             simplifies search experiences, and removes the frustration from job hunting.
                         </p>
                         <div class="intro-author">
-                            <span class="author-name">— The AntApple Team</span>
+                            <span class="author-name">— The Sproutplex Team</span>
                             <span class="author-title">Building Better Connections</span>
                         </div>
                         <div class="intro-pattern"></div>
@@ -89,7 +89,7 @@
                 <span class="badge bg-success-subtle text-success px-4 py-2 rounded-pill mb-3">
                     <i class="bi bi-stars me-2"></i>What Makes Us Different
                 </span>
-                <h2 class="section-title fw-bold mb-3">The AntApple Advantage</h2>
+                <h2 class="section-title fw-bold mb-3">The Sproutplex Advantage</h2>
                 <p class="text-muted lead mx-auto" style="max-width: 600px;">
                     Four pillars that transform how you discover and land your next opportunity
                 </p>
@@ -129,7 +129,7 @@
                     </div>
                     <h3 class="feature-title">Built for the Nigerian Market</h3>
                     <p class="feature-description">
-                        AntApple understands local hiring trends, from Lagos to Abuja and emerging states.
+                        Sproutplex understands local hiring trends, from Lagos to Abuja and emerging states.
                         We optimize for both physical and remote opportunities relevant to Nigerian professionals.
                     </p>
                     <div class="feature-locations">
@@ -218,7 +218,7 @@
                     </p>
 
                     <p class="text-muted mb-4">
-                        We design AntApple with empathy, knowing that behind every click
+                        We design Sproutplex with empathy, knowing that behind every click
                         is a real person seeking opportunity. Our platform is built on
                         principles of transparency, reliability, and genuine care for
                         both job seekers and employers.
@@ -283,7 +283,7 @@
                 </span>
                 <h2 class="section-title fw-bold mb-3">What Our Users Say</h2>
                 <p class="text-muted lead mx-auto" style="max-width: 600px;">
-                    Real experiences from job seekers and employers who found their match on AntApple
+                    Real experiences from job seekers and employers who found their match on Sproutplex
                 </p>
             </div>
 
@@ -298,7 +298,7 @@
                     </div>
                     <p class="testimonial-text">
                         "I was tired of scrolling through outdated job posts on other platforms.
-                        AntApple's filtering system actually works! I found my current role as a
+                        Sproutplex's filtering system actually works! I found my current role as a
                         Senior Developer within two weeks."
                     </p>
                     <div class="testimonial-author">
@@ -319,7 +319,7 @@
                         <i class="bi bi-star-fill text-warning"></i>
                     </div>
                     <p class="testimonial-text">
-                        "As an employer, AntApple has been a game-changer. We posted our job and
+                        "As an employer, Sproutplex has been a game-changer. We posted our job and
                         received qualified applications within hours. The verification process
                         ensures we only get serious candidates."
                     </p>
@@ -346,7 +346,7 @@
                     </div>
                     <p class="testimonial-text">
                         "The smart filtering system recommended a role I hadn't considered,
-                        and it turned out to be perfect for my skills. AntApple understands
+                        and it turned out to be perfect for my skills. Sproutplex understands
                         the Nigerian job market like no other platform."
                     </p>
                     <div class="testimonial-author">
@@ -366,11 +366,11 @@
         <div class="container">
             <div class="text-center mb-5">
                 <span class="badge bg-success-subtle text-success px-4 py-2 rounded-pill mb-3">
-                    <i class="bi bi-bar-chart me-2"></i>The AntApple Difference
+                    <i class="bi bi-bar-chart me-2"></i>The Sproutplex Difference
                 </span>
                 <h2 class="section-title fw-bold mb-3">How We Compare</h2>
                 <p class="text-muted lead mx-auto" style="max-width: 600px;">
-                    See why job seekers and employers choose AntApple over traditional platforms
+                    See why job seekers and employers choose Sproutplex over traditional platforms
                 </p>
             </div>
 
@@ -380,7 +380,7 @@
                         <tr>
                             <th>Features</th>
                             <th>Traditional Platforms</th>
-                            <th class="highlight">AntApple</th>
+                            <th class="highlight">Sproutplex</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -420,7 +420,7 @@
         <div class="container">
             <div class="cta-card text-center">
                 <div class="cta-particles"></div>
-                <h2 class="display-5 fw-bold mb-4">Ready to Experience the AntApple Difference?</h2>
+                <h2 class="display-5 fw-bold mb-4">Ready to Experience the Sproutplex Difference?</h2>
                 <p class="lead mb-5 mx-auto" style="max-width: 700px; color: rgba(255,255,255,0.9);">
                     Join thousands of job seekers and employers who've discovered a better way to connect.
                 </p>
@@ -447,7 +447,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
-    /* Premium Why AntApple Styles */
+    /* Premium Why Sproutplex Styles */
 
     /* Hero Section */
     .why-hero {

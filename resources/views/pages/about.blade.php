@@ -24,7 +24,7 @@
                     </div>
 
                     <h1 class="hero-title display-3 fw-bold mb-4">
-                        About <span class="text-gradient">AntApple</span>
+                        About <span class="text-gradient">Sproutplex</span>
                     </h1>
 
                     <p class="hero-subtitle lead mb-5 mx-auto" style="max-width: 700px;">
@@ -68,7 +68,7 @@
                     </div>
 
                     <h2 class="section-title fw-bold mb-4">
-                        The Story Behind <span class="text-success">AntApple</span>
+                        The Story Behind <span class="text-success">Sproutplex</span>
                     </h2>
 
                     <div class="story-content">
@@ -77,7 +77,7 @@
                         </p>
 
                         <p class="text-muted mb-4">
-                            AntApple was born from a simple observation: job seekers were struggling
+                            Sproutplex was born from a simple observation: job seekers were struggling
                             with outdated listings, poor filtering systems, and overwhelming platforms
                             that made finding the right opportunity feel impossible.
                         </p>
@@ -95,7 +95,7 @@
                                 a platform that truly understands and serves both sides of the equation.
                             </p>
                             <div class="quote-author mt-3">
-                                <strong>— The AntApple Team</strong>
+                                <strong>— The Sproutplex Team</strong>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                     <div class="story-image-wrapper">
                         <div class="image-glow"></div>
                         <div class="image-pattern"></div>
-                        <img src="https://placehold.co/600x400/10b981/white?text=Our+Journey" alt="AntApple Journey"
+                        <img src="https://placehold.co/600x400/10b981/white?text=Our+Journey" alt="Sproutplex Journey"
                             class="story-image rounded-4 shadow-lg">
 
                         <div class="image-caption">
@@ -310,7 +310,7 @@
                                 <span class="badge bg-warning-subtle text-warning px-4 py-2 rounded-pill mb-3">
                                     <i class="bi bi-rocket me-2"></i>What's Next
                                 </span>
-                                <h3 class="fw-bold mb-3">Looking Ahead: The Future of AntApple</h3>
+                                <h3 class="fw-bold mb-3">Looking Ahead: The Future of Sproutplex</h3>
                                 <p class="text-muted mb-4">
                                     We're building the next generation of job discovery with:
                                 </p>
@@ -346,7 +346,7 @@
                                         <i class="bi bi-globe"></i>
                                         <div>
                                             <h6>Pan-African Expansion</h6>
-                                            <p class="small text-muted">Taking AntApple across the continent</p>
+                                            <p class="small text-muted">Taking Sproutplex across the continent</p>
                                         </div>
                                     </div>
                                 </div>
@@ -376,7 +376,7 @@
         <div class="container">
             <div class="cta-card text-center">
                 <div class="cta-pattern"></div>
-                <h2 class="fw-bold mb-3">Join the AntApple Community</h2>
+                <h2 class="fw-bold mb-3">Join the Sproutplex Community</h2>
                 <p class="lead mb-4 mx-auto" style="max-width: 600px; color: rgba(255,255,255,0.9);">
                     Discover opportunities. Connect with employers. Build your future with Africa's fastest growing job
                     platform.

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Explore Opportunities - AntApple Jobs')
+@section('title', 'Explore Opportunities - Sproutplex Jobs')
 @section('description',
     'Discover internships, scholarships, grants, and graduate programs to accelerate your career
     journey.')

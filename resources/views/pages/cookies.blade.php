@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', $seo['title'] ?? 'Cookies Policy - AntApple Jobs')
+@section('title', $seo['title'] ?? 'Cookies Policy - Sproutplex Jobs')
 @section('description',
     $seo['description'] ??
-    'Learn how AntApple Jobs uses cookies to enhance your browsing experience
+    'Learn how Sproutplex Jobs uses cookies to enhance your browsing experience
     and personalize job recommendations.')
 
 @section('content')
@@ -35,7 +35,8 @@
                     {{-- Cookie Consent Reminder --}}
                     <div class="consent-reminder mb-5">
                         <i class="bi bi-info-circle"></i>
-                        <p class="mb-0">By continuing to use AntApple Jobs, you consent to our use of cookies as described
+                        <p class="mb-0">By continuing to use Sproutplex Jobs, you consent to our use of cookies as
+                            described
                             in this policy.</p>
                     </div>
 
@@ -173,7 +174,7 @@
                         </div>
                         <h2>5. Changes to This Policy</h2>
                         <p>We may update this Cookies Policy to reflect changes in technology or regulations. We'll notify
-                            you of significant changes through a site notice or email. Your continued use of AntApple Jobs
+                            you of significant changes through a site notice or email. Your continued use of Sproutplex Jobs
                             after updates constitutes acceptance.</p>
                     </div>
 
@@ -184,7 +185,7 @@
                             <h5 class="fw-bold mb-2">Questions About Cookies?</h5>
                             <p class="mb-0">We're happy to explain our cookie usage in more detail.</p>
                         </div>
-                        <a href="mailto:privacy@antapple.com" class="btn-contact">Ask Us</a>
+                        <a href="mailto:privacy@Sproutplex.com" class="btn-contact">Ask Us</a>
                     </div>
                 </div>
             </div>

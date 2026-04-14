@@ -83,11 +83,11 @@
                     <div class="support-options">
                         <div class="support-item">
                             <i class="bi bi-envelope"></i>
-                            <span>Email: <a href="mailto:support@antapple.com">support@antapple.com</a></span>
+                            <span>Email: <a href="mailto:support@Sproutplex.com">support@Sproutplex.com</a></span>
                         </div>
                         <div class="support-item">
                             <i class="bi bi-twitter-x"></i>
-                            <span>X: <a href="#">@AntAppleJobs</a></span>
+                            <span>X: <a href="#">@SproutplexJobs</a></span>
                         </div>
                         <div class="support-item">
                             <i class="bi bi-chat"></i>
