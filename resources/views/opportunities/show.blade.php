@@ -134,17 +134,34 @@
                 @endif
 
                 {{-- Apply Button --}}
+                {{-- Apply Button --}}
                 @if ($opportunity->apply_url)
                     <div class="apply-section">
-                        <a href="{{ $opportunity->apply_url }}" target="_blank" class="btn-apply">
+                        <a href="{{ route('opportunities.apply', $opportunity->uuid) }}" target="_blank"
+                            rel="noopener noreferrer" class="btn-apply"
+                            onclick="this.innerHTML='Redirecting...'; this.style.pointerEvents='none';">
+
                             <span>Apply Now</span>
                             <i class="bi bi-arrow-right"></i>
                             <div class="btn-glow"></div>
                         </a>
+
                         <p class="apply-note">
                             <i class="bi bi-shield-check"></i>
-                            You'll be redirected to the official application page
+                            Secure redirect to official application page
                         </p>
+
+                        @if ($opportunity->clicks)
+                            <small class="text-muted d-block mt-2">
+                                {{ $opportunity->clicks }} people have applied
+                            </small>
+                        @endif
+
+                        @if ($opportunity->views > 0)
+                            <small class="text-success">
+                                {{ round(($opportunity->clicks / $opportunity->views) * 100, 1) }}% applied
+                            </small>
+                        @endif
                     </div>
                 @endif
 
@@ -311,6 +328,14 @@
                         </div>
                     </div>
                 @endif
+
+                <h5>🔥 Trending Opportunities</h5>
+
+                {{-- @foreach ($trending as $item)
+                    <p>
+                        {{ $item->title }} — {{ $item->viewsRelation_count }} views
+                    </p>
+                @endforeach --}}
 
                 {{-- Similar Opportunities --}}
                 @if (isset($similarOpportunities) && $similarOpportunities->count())

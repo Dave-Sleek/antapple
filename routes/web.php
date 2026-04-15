@@ -125,9 +125,15 @@ Route::post('/reset-password', function (Request $request) {
 Route::get('/opportunities', [OpportunityController::class, 'index'])
     ->name('opportunities.index');
 
+Route::get('/opportunities/{uuid}/apply', [OpportunityController::class, 'apply'])
+    ->name('opportunities.apply');
+
 Route::get('/opportunities/{uuid}/{slug}', [OpportunityController::class, 'show'])
     ->name('opportunities.show');
 
+
+Route::get('/account-suspended', function () 
+    { return view('auth.suspended'); })->name('account.suspended');
 /*
 |--------------------------------------------------------------------------
 | Email Verification
@@ -198,7 +204,7 @@ Route::view('/offline', 'offline')->name('offline');
 
 
 
-Route::middleware(['auth', 'employer', 'subscribed', 'verified'])->group(function () {
+Route::middleware(['auth', 'employer', 'subscribed', 'verified', 'active'])->group(function () {
 
     Route::get('/post-job', [EmployerController::class, 'dashboard'])
         ->name('jobs.create');
@@ -353,6 +359,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('/users/employers', [AdminUserController::class, 'employers'])->name('users.employers');
 
     Route::post('/users/{user}/suspend', [AdminUserController::class, 'suspend'])->name('users.suspend');
+    Route::post('/users/{user}/unsuspend', [AdminUserController::class, 'unsuspend'])->name('users.unsuspend');
 
     Route::get('/revenue/payments', [AdminPaymentController::class, 'index'])->name('revenue.payments');
 

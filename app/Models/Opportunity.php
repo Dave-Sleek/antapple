@@ -111,6 +111,16 @@ class Opportunity extends Model
         return ucfirst(str_replace('_', ' ', $this->type));
     }
 
+    public function viewsRelation()
+        {
+            return $this->hasMany(\App\Models\OpportunityView::class);
+        }
+
+        public function clicksRelation()
+        {
+            return $this->hasMany(\App\Models\OpportunityClick::class);
+        }
+
     public function getRouteKeyName()
     {
         return 'uuid';

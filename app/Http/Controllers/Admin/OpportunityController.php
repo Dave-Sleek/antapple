@@ -13,9 +13,24 @@ class OpportunityController extends Controller
 {
     public function index()
     {
-        $opportunities = Opportunity::latest()->paginate(15);
+        // $opportunities = Opportunity::latest()->paginate(15);
 
-        return view('admin.opportunities.index', compact('opportunities'));
+        $opportunities = Opportunity::withCount([
+        'viewsRelation as views_count',
+        'clicksRelation as clicks_count'
+            ])
+            ->latest()
+            ->paginate(15);
+
+
+        $totalViews = \App\Models\OpportunityView::count();
+        $totalClicks = \App\Models\OpportunityClick::count();
+
+        $conversionRate = $totalViews > 0
+            ? round(($totalClicks / $totalViews) * 100, 1)
+            : 0;
+        
+        return view('admin.opportunities.index', compact('opportunities', 'totalViews', 'totalClicks', 'conversionRate'));
     }
 
     public function create()

@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin'    => \App\Http\Middleware\AdminOnly::class,
             'editor'   => \App\Http\Middleware\EditorOnly::class,
             'employer' => \App\Http\Middleware\EmployerOnly::class,
+            'active' => \App\Http\Middleware\CheckIfActive::class,
             'subscribed' => \App\Http\Middleware\EnsureUserHasSubscription::class,
         ]);
     })

@@ -22,6 +22,11 @@ class JobController extends Controller
     */
     public function index(Request $request)
     {
+
+        if (Auth::check() && !Auth::user()->is_active) {
+                return redirect()->route('account.suspended');
+            }
+
         $categories = Category::withCount([
             'jobs' => fn($q) => $q->where('status', 'active')
         ])->orderBy('name')->get();

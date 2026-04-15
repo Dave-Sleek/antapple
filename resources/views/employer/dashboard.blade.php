@@ -26,13 +26,41 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                {{-- <div class="col-lg-6">
                     <div class="header-actions">
                         <a href="{{ route('employer.create') }}" class="btn-primary-premium">
                             <i class="bi bi-plus-circle me-2"></i>
                             <span>Post New Job</span>
                             <div class="btn-glow"></div>
                         </a>
+                    </div>
+                </div> --}}
+                @php
+                    $user = auth()->user();
+                @endphp
+
+                <div class="col-lg-6">
+                    @if ($user && $user->hasReachedJobLimit())
+                        <div class="alert alert-warning mt-3">
+                            🚫 You’ve reached your posting limit.
+                            <a href="{{ route('pricing') }}" class="fw-bold">Upgrade your plan</a>
+                        </div>
+                    @endif
+                    <div class="header-actions">
+                        @if ($user && $user->hasReachedJobLimit())
+                            <button class="btn-primary-premium disabled" disabled
+                                title="You have reached your posting limit">
+                                <i class="bi bi-lock me-2"></i>
+                                <span>Limit Reached</span>
+                            </button>
+                        @else
+                            <a href="{{ route('employer.create') }}" class="btn-primary-premium">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                <span>Post New Job</span>
+                                <div class="btn-glow"></div>
+                            </a>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -60,17 +88,6 @@
                                 <i class="bi bi-briefcase"></i>
                                 <span>Jobs Left:
                                     <strong>{{ auth()->user()->subscription->plan->job_limit - $totalJobs }}</strong></span>
-
-                                {{-- @php
-                                    $featuredUsed = auth()->user()->jobs()->where('is_featured', true)->count();
-                                    $planLimit = auth()->user()->subscription->plan->featured_limit ?? 0;
-                                @endphp
-
-                                @if ($featuredUsed >= $planLimit)
-                                    <small class="text-danger">
-                                        Featured limit reached.
-                                    </small>
-                                @endif --}}
                             </div>
                         </div>
                     </div>

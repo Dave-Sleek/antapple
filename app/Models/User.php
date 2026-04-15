@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 
 class User extends Authenticatable implements MustVerifyEmail
 
@@ -25,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'role',
         'is_subscribed',
+        'is_active',
         'company_name',
         'company_logo',
         'phone',
@@ -64,6 +66,38 @@ class User extends Authenticatable implements MustVerifyEmail
             ? asset('storage/' . $this->company_logo)
             : asset('images/default-company.png');
     }
+
+
+    public function jobPostingLimit()
+        {
+            if (!$this->subscription) {
+            return 3; // free
+        }
+
+        return match ($this->subscription->plan->name) {
+            'basic' => 10,
+            'pro' => 30,
+            default => 3,
+        };
+            }
+
+        public function jobsPostedCount()
+            {
+                $startDate = optional($this->subscription)->started_at;
+
+                if (!$startDate) {
+                    return $this->jobs()->count();
+                }
+
+                return $this->jobs()
+                    ->where('created_at', '>=', $startDate)
+                    ->count();
+            }
+
+       public function hasReachedJobLimit()
+        {
+            return $this->jobsPostedCount() >= $this->jobPostingLimit();
+        }
 
 
     public function getIsVerifiedAttribute()
@@ -125,6 +159,11 @@ class User extends Authenticatable implements MustVerifyEmail
         $jobCount = $this->jobs()->count();
         return $jobCount < $this->subscription->plan->job_limit;
     }
+
+    public function opportunities()
+        {
+            return $this->hasMany(\App\Models\Opportunity::class);
+        }
 
 
     public function dashboardRoute()

@@ -27,12 +27,12 @@
 
                 {{-- Headline - larger display-1 --}}
                 <h1 class="fw-bold display-1 mb-3" style="font-family: 'Open Sans', sans-serif;">
-                    Discover Verified Opportunities That Move You {{-- <i class="fa fa-forward" aria-hidden="true"></i> --}}
+                    Discover Verified Opportunities That Move You Forward {{-- <i class="fa fa-forward" aria-hidden="true"></i> --}}
                 </h1>
 
                 {{-- Subtext - larger fs-3 --}}
                 <p class="fs-3 mb-4" style="font-family: 'Open Sans', sans-serif;">
-                    Curated opportunities to help you grow faster.
+                    Hand-picked opportunities designed to accelerate your career.
                 </p>
 
                 <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-4 mt-3">
@@ -67,6 +67,14 @@
                         💼 Top Companies
                     </span>
                 </div> --}}
+
+                <div class="particles">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
 
                 {{-- Bottom text --}}
                 <p class="fs-6 mt-4" style="font-family: 'Open Sans', sans-serif;">

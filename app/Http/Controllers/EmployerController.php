@@ -63,9 +63,6 @@ class EmployerController extends Controller
             ->sum('amount');
 
 
-        // $query = Job_post::where('user_id', $userId)
-        //     ->withCount('jobViews');
-
         $totalViews = \App\Models\JobView::whereHas('job', function ($q) {
             $q->where('user_id', auth::id());
         })->count();
@@ -147,16 +144,12 @@ class EmployerController extends Controller
                 ->with('error', 'Please complete your profile before posting a job.');
         }
 
+         if (auth::user()->hasReachedJobLimit()) {
+        return redirect()->route('employer.dashboard')
+            ->with('error', 'Limit reached.');
+            }
 
-        // if (!auth::check()) {
-        //     return redirect()->route('pricing');
-        // }
-        // $user = auth::user();
-        // if (!$user->subscription || !$user->subscription->status = 'approved') {
-        //     return redirect()->route('pricing')
-        //         ->with('error', 'Please choose a subscription plan first');
-        // }
-        // return view('employer.create');
+            return view('employer.create');
 
 
         $categories = Category::all();
@@ -165,9 +158,20 @@ class EmployerController extends Controller
 
 
     // Store Job
-    // Store Job
     public function store(Request $request)
     {
+        $user = Auth::user();
+
+            if (!$user) {
+                return redirect()->route('login');
+            }
+
+            // ✅ CHECK LIMIT FIRST (BEFORE ANYTHING)
+            // if ($user->hasReachedJobLimit()) {
+            //     return redirect()->route('employer.dashboard')
+            //         ->with('error', 'You have reached your job posting limit. Upgrade your plan.');
+            // }
+
         $data = $request->validate([
             'title'             => 'required|string|max:255',
             'company_name'      => 'required|string|max:255',
@@ -186,19 +190,11 @@ class EmployerController extends Controller
         ]);
 
 
-        $user = auth::user();
-
-
         // If remote, override location
         if ($request->boolean('is_remote')) {
             $data['location'] = 'Remote';
         }
 
-        // Upload logo if exists
-        // if ($request->hasFile('company_logo')) {
-        //     $data['company_logo'] = $request->file('company_logo')
-        //         ->store('logos', 'public');
-        // }
 
         if ($request->hasFile('company_logo')) {
             $path = $request->file('company_logo')->store('logos', 'public');
@@ -216,7 +212,6 @@ class EmployerController extends Controller
     | SMART SUBSCRIPTION LOGIC
     |--------------------------------------------------------------------------
     */
-
         if ($user->hasActiveSubscription()) {
             // Subscriber → auto approved
             $data['status'] = 'active';
@@ -237,7 +232,6 @@ class EmployerController extends Controller
 
         $job = Job_post::create($data);
         // Job_post::create($data);
-
 
         /*
         | Email alerts (queue)
@@ -272,19 +266,6 @@ class EmployerController extends Controller
                 ]
             );
         }
-
-        $job = Job_post::where('uuid', $data['uuid'])->first();
-
-        if (!$job) {
-            // handle gracefully
-            return back()->withErrors(['error' => 'Job not found for UUID ' . $data['uuid']]);
-        }
-
-        $job->company_name = Auth::user()->company_name;
-        $job->location = Auth::user()->location;
-        $job->user_id = Auth::id();
-        $job->save();
-
 
         return redirect()->route('employer.dashboard')
             ->with('success', $successMessage);
@@ -354,7 +335,7 @@ class EmployerController extends Controller
         $subscription = Auth::user()->subscription;
 
         if ($job->is_featured && (!$subscription || $subscription->status !== 'successful')) {
-            return back()->with('error', 'You cannot edit a featured job with an active subscription.');
+            return back()->with('error', 'You cannot edit a featured job without an active subscription.');
         }
 
         $categories = Category::all();
@@ -370,7 +351,7 @@ class EmployerController extends Controller
 
         $subscription = Auth::user()->subscrption;
         if ($job->is_featured && (!$subscription || $subscription->status !== 'successful')) {
-            return back()->with('error', 'You cannot update a featured job with an active subscription.');
+            return back()->with('error', 'You cannot update a featured job without an active subscription.');
         }
 
         $job->update($request->all());

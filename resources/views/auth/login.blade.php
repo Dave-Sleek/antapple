@@ -101,8 +101,7 @@
             <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center left-side">
                 <div class="text-center px-5 left-content">
 
-                    <h1 class="brand-title mb-4">AntApple</h1>
-
+                    <h1 class="brand-title mb-4">Sproutplex</h1>
                     <p class="lead">
                         Connect with top talent across Nigeria.
                         Build your team faster. Hire smarter.
@@ -119,7 +118,9 @@
             <div class="col-lg-6 d-flex align-items-center justify-content-center bg-white">
 
                 <div class="w-75" style="max-width:400px;">
-
+                    {{-- <img src="{{ asset('images/sprout_logo.png') }}" class="premium-logo"
+                        style="height:52px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); align-self: right; margin-bottom: 1.5rem;"
+                        alt="Sproutplex Logo"> --}}
                     <h3 class="fw-bold mb-2">Welcome back</h3>
                     <p class="text-muted mb-4">Login to your employer account</p>
 

@@ -137,14 +137,14 @@
             overflow-x: hidden;
         }
 
-        /* Overlay for readability */
         /* Overlay layer */
-        .hero-bg::before {
+        .hero-bg::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
-            /* or gradient for depth */
+            background: radial-gradient(circle at 80% 50%,
+                    rgba(34, 197, 94, 0.25),
+                    transparent 60%);
             z-index: 0;
         }
 
@@ -191,7 +191,6 @@
             }
         }
 
-        /* Main headline */
         /* Main headline - moderate size with animation */
         .hero-bg h1 {
             font-weight: 800 !important;
@@ -1509,6 +1508,76 @@
             .companies-button {
                 padding: 8px 16px;
                 font-size: 0.85rem;
+            }
+        }
+
+        /* Particles effect */
+
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 1;
+            /* above overlay, below content */
+            pointer-events: none;
+        }
+
+        .particles span {
+            position: absolute;
+            display: block;
+            width: 6px;
+            height: 6px;
+            /* background: rgba(255, 255, 255, 0.15); */
+            background: rgba(34, 197, 94, 0.25);
+            /* green glow */
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+            border-radius: 50%;
+            animation: floatUp 12s linear infinite;
+        }
+
+        /* Random positions */
+        .particles span:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particles span:nth-child(2) {
+            left: 30%;
+            animation-delay: 2s;
+        }
+
+        .particles span:nth-child(3) {
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        .particles span:nth-child(4) {
+            left: 70%;
+            animation-delay: 6s;
+        }
+
+        .particles span:nth-child(5) {
+            left: 90%;
+            animation-delay: 8s;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
             }
         }
     </style>

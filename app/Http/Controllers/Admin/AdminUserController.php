@@ -225,11 +225,38 @@ class AdminUserController extends Controller
     }
 
     public function suspend(User $user)
-    {
-        $user->update([
-            'is_active' => false
-        ]);
+        {
+            $user->update(['is_active' => false]);
 
-        return back()->with('success', 'Employer suspended successfully.');
-    }
+            // Disable all their jobs
+            $user->jobs()->update([
+                'status' => 'inactive'
+            ]);
+
+            // Disable opportunities (if applicable)
+            $user->opportunities()->update([
+                'status' => 'inactive'
+            ]);
+
+            return back()->with('success', 'Employer suspended successfully.');
+        }
+
+    public function unsuspend(User $user)
+        {
+            $user->update([
+                'is_active' => true
+            ]);
+
+            // Reactivate jobs
+            $user->jobs()->where('status', 'inactive')->update([
+                    'status' => 'active'
+                ]);
+
+            // Reactivate opportunities
+            $user->opportunities()->where('status', 'inactive')->update([
+                'status' => 'active'
+            ]);
+
+            return back()->with('success', 'Employer unsuspended successfully.');
+        }
 }

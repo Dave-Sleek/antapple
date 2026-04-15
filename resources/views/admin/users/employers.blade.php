@@ -77,6 +77,14 @@
                                                 Suspend
                                             </button>
                                         </form>
+                                    @else
+                                        <form action="{{ route('admin.users.unsuspend', $user->id) }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-sm btn-success"
+                                                onclick="return confirm('Are you sure you want to restore this account?')">
+                                                Restore Account
+                                            </button>
+                                        </form>
                                     @endif
                                 </td>
                             </tr>

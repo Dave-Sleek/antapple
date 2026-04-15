@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Invoice #{{ $payment->id }}</title>
     <style>
         /* Premium Invoice Styles for DOMPDF */
@@ -435,13 +435,13 @@
         {{-- Company Info --}}
         <div class="company-info">
             <div class="company-logo">
-                <h2>AntApple Jobs</h2>
+                <h2>Sproutplex Jobs</h2>
                 <div style="color: #64748b; font-size: 12px;">Verified Job Platform</div>
             </div>
             <div class="company-details">
                 <p>123 Business Avenue</p>
                 <p>Abuja, Nigeria</p>
-                <p>hello@antapple.com</p>
+                <p>hello@Sproutplex.com</p>
                 <p>+234 704 455 74466</p>
             </div>
         </div>
@@ -505,17 +505,17 @@
                 {{-- Payment Details --}}
                 <div class="summary-row">
                     <span class="summary-label">Subtotal:</span>
-                    <span class="summary-value">₦{{ number_format($payment->amount, 0) }}</span>
+                    <span class="summary-value">#{{ number_format($payment->amount, 0) }}</span>
                 </div>
                 <div class="summary-row">
                     <span class="summary-label">Tax (0%):</span>
-                    <span class="summary-value">₦0</span>
+                    <span class="summary-value">#0</span>
                 </div>
 
                 {{-- Total --}}
                 <div class="summary-row total">
                     <span class="summary-label">Total Amount:</span>
-                    <span class="summary-value">₦{{ number_format($payment->amount, 0) }}</span>
+                    <span class="summary-value">#{{ number_format($payment->amount, 0) }}</span>
                 </div>
 
                 {{-- Status --}}
@@ -541,19 +541,19 @@
         {{-- Premium Footer --}}
         <div class="invoice-footer">
             <div class="footer-content">
-                <div class="thank-you">Thank you for choosing AntApple Jobs!</div>
+                <div class="thank-you">Thank you for choosing Sproutplex Jobs!</div>
                 <p>This invoice was generated automatically. No signature required.</p>
 
                 <div class="footer-links">
-                    <span>support@antapple.com</span>
+                    <span>support@Sproutplex.com</span>
                     <span>•</span>
-                    <span>antapple.com/terms</span>
+                    <span>Sproutplex.com/terms</span>
                     <span>•</span>
                     <span>+234 704 455 74466</span>
                 </div>
 
                 <p style="font-size: 10px; color: #94a3b8;">
-                    AntApple Jobs Ltd. - Registered in Nigeria
+                    Sproutplex Jobs Ltd. - Registered in Nigeria
                 </p>
                 <p style="font-size: 10px; color: #94a3b8; margin-top: 10px;">
                     Invoice #{{ str_pad($payment->id, 6, '0', STR_PAD_LEFT) }} | Generated on
