@@ -1,135 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Editor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Job_post;
 use App\Models\Category;
-use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\JobAlert;
 use App\Mail\JobAlertMail;
-use App\Mail\OpportunityAlertMail;
-use App\Models\Opportunity;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
-class AdminJobController extends Controller
+class JobController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $query = Job_post::withCount('jobViews'); // Start with the view count
-
-        // 🔎 Search
-        if ($request->filled('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                    ->orWhere('company_name', 'like', '%' . $request->search . '%');
-            });
-        }
-
-        // 📌 Status
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        // ⭐ Type (featured / standard)
-        if ($request->filled('type')) {
-            if ($request->type === 'featured') {
-                $query->where('is_featured', true);
-            } elseif ($request->type === 'standard') {
-                $query->where(function ($q) {
-                    $q->where('is_featured', false)
-                        ->orWhereNull('is_featured');
-                });
-            }
-        }
-
-        // 🏢 Employer
-        if ($request->filled('employer')) {
-            $query->where('user_id', $request->employer);
-        }
-
-        // Get the filtered jobs with view count
-        $jobs = $query->latest()->paginate(10)->withQueryString();
-
-        // Stats for the dashboard
-        $totalViews = \App\Models\JobView::count();
-        $uniqueViewers = \App\Models\JobView::distinct('ip')->count('ip');
-        $topJobs = Job_post::withCount('jobViews')
-            ->orderByDesc('job_views_count')
-            ->take(5)
-            ->get();
-
-        $employers = \App\Models\User::where('role', 'employer')->get();
-
-        return view('admin.jobs.index', compact('jobs', 'employers', 'totalViews', 'uniqueViewers', 'topJobs'));
-    }
-
-
-    public function export(Request $request)
-    {
-        $query = Job_post::query();
-
-        // Apply same filters
-        if ($request->filled('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                    ->orWhere('company_name', 'like', '%' . $request->search . '%');
-            });
-        }
-
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        if ($request->filled('type')) {
-            if ($request->type === 'featured') {
-                $query->where('is_featured', true);
-            } else {
-                $query->where('is_featured', false);
-            }
-        }
-
-        if ($request->filled('employer')) {
-            $query->where('employer_id', $request->employer);
-        }
-
-        $jobs = $query->latest()->get();
-
-        $csvData = "Title,Company,Location,Type,Status\n";
-
-        foreach ($jobs as $job) {
-            $csvData .= "\"{$job->title}\","
-                . "\"{$job->company_name}\","
-                . "\"{$job->location}\","
-                . "\"{$job->job_type}\","
-                . "\"{$job->status}\"\n";
-        }
-
-        return response($csvData)
-            ->header('Content-Type', 'text/csv')
-            ->header('Content-Disposition', 'attachment; filename="jobs_export.csv"');
-    }
-
-    public function toggleFeatured(Job_post $job)
-    {
-        $job->is_featured = !$job->is_featured;
-        $job->save();
-
-        return response()->json([
-            'success' => true,
-            'is_featured' => $job->is_featured
-        ]);
+        $jobs = Job_post::latest()->paginate(10);
+        return view('editor.jobs.index', compact('jobs'));
     }
 
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.jobs.create', compact('categories'));
+        return view('editor.jobs.create');
     }
 
     /*
@@ -142,8 +38,8 @@ class AdminJobController extends Controller
         $data = $request->validate([
             'title'             => 'required|string|max:255',
             'company_name'      => 'required|string|max:255',
-            'is_verified' => 'nullable|boolean',
-            'about_company' => 'nullable|string|max:2000',
+            'is_verified'       => 'nullable|boolean',
+            'about_company'     => 'nullable|string|max:2000',
             'company_logo'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'category_id'       => 'required|exists:categories,id',
             'job_type'          => 'required',
@@ -174,14 +70,15 @@ class AdminJobController extends Controller
         | Upload logo
         */
         if ($request->hasFile('company_logo')) {
-            $path = $request->file('company_logo')->store('logos', 'public');
-            $data['company_logo'] = $path; // e.g. "logos/filename.png"
-        }
+                $path = $request->file('company_logo')->store('logos', 'public');
+                $data['company_logo'] = $path; // e.g. "logos/filename.png"
+            }
 
 
-        $job = Job_post::create($data);
-
-        Cache::flush(); // Clear cache to reflect new job in sitemap and listings
+        // $job = Job_post::create($data);
+        $job = Auth::user()->jobs()->create($data);
+        
+        Cache::flush(); // Clear cache after creating a job
 
         // Ping Google to update sitemap
         Http::get('https://www.google.com/ping', [
@@ -211,7 +108,11 @@ class AdminJobController extends Controller
                 . "📍 {$job->location}\n"
                 . "💼 {$job->job_type}\n"
                 . "Apply here: "
-                . "🔗 " . route('jobs.show', $job);
+                . "🔗 " . route('jobs.show', [
+                        'job' => $job->uuid,
+                        'slug' => \Illuminate\Support\Str::slug($job->title),
+                    ]);
+                // . "🔗 " . route('jobs.show', $job);
 
             Http::post(
                 "https://api.telegram.org/bot" . config('services.telegram.bot_token') . "/sendMessage",
@@ -223,7 +124,7 @@ class AdminJobController extends Controller
             );
         }
 
-        return redirect()->route('admin.jobs.index')
+        return redirect()->route('editor-jobs.index')
             ->with('success', 'Job posted, alerts sent & Telegram notified!');
     }
 
@@ -236,7 +137,7 @@ class AdminJobController extends Controller
     public function edit(Job_post $job)
     {
         $categories = Category::all();
-        return view('admin.jobs.edit', compact('job', 'categories'));
+        return view('editor.jobs.edit', compact('job', 'categories'));
     }
 
 
@@ -250,8 +151,8 @@ class AdminJobController extends Controller
         $data = $request->validate([
             'title'             => 'required|string|max:255',
             'company_name'      => 'required|string|max:255',
-            'is_verified' => 'nullable|boolean',
-            'about_company' => 'nullable|string|max:2000',
+            'is_verified'       => 'nullable|boolean',
+            'about_company'     => 'nullable|string|max:2000',
             'company_logo'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'category_id'       => 'required|exists:categories,id',
             'job_type'          => 'required',
@@ -260,12 +161,11 @@ class AdminJobController extends Controller
             'apply_url'         => 'required|url',
             'short_description' => 'required',
             'deadline'          => 'nullable|date',
-            'status'            => 'required|in:active,inactive',
+            'status'            => 'required|in:active,expired,inactive',
             'is_featured'       => 'nullable|boolean',
             'experience_level'  => 'nullable|string',
             'salary_range'      => 'nullable|string',
             'source'            => 'nullable|string',
-            // 'uuid' => (string) Str::uuid(),
         ]);
 
         /*
@@ -275,8 +175,8 @@ class AdminJobController extends Controller
             $data['location'] = 'Remote';
         }
 
-            $data['is_paid'] = true;
-            $data['is_approved'] = true;
+        $data['is_paid'] = true;
+        $data['is_approved'] = true;
 
         /*
         | Replace logo if uploaded
@@ -284,34 +184,37 @@ class AdminJobController extends Controller
         if ($request->hasFile('company_logo')) {
 
             // delete old
-            if ($job->company_logo) {
-                Storage::disk('public')->delete(
-                    str_replace('storage/', '', $job->company_logo)
-                );
-            }
+            if ($request->hasFile('company_logo')) {
+                // delete old
+                if ($job->company_logo) {
+                    Storage::disk('public')->delete($job->company_logo);
+                }
 
-           $path = $request->file('company_logo')->store('logos', 'public');
-           $data['company_logo'] = $path; // e.g. "logos/company1.png"
+                // store new
+                $path = $request->file('company_logo')->store('logos', 'public');
+                $data['company_logo'] = $path; // e.g. "logos/company1.png"
+            }
         }
 
         $job->update($data);
 
-        return redirect()->route('admin.jobs.index')
+        return redirect()->route('editor-jobs.index')
             ->with('success', 'Job updated successfully!');
     }
+    
+    // public function edit(Job_post $job)
+    // {
+    //     return view('editor.jobs.edit', compact('job'));
+    // }
 
-    public function pending()
-    {
-        $pendingJobs = Job_post::where('status', 'pending')
-            ->latest()
-            ->get();
+    // public function update(Request $request, Job_post $job)
+    // {
+    //     $job->update($request->all());
 
-        return view('admin.jobs.pending', compact('pendingJobs'));
-    }
+    //     return redirect()->route('ejobs.index')->with('success', 'Updated');
+    // }
 
-
-
-    /*
+     /*
     |--------------------------------------------------------------------------
     | DELETE
     |--------------------------------------------------------------------------
@@ -370,38 +273,58 @@ class AdminJobController extends Controller
         // 👇 This preserves filters in pagination links
         $jobs = $query->paginate(20)->appends($request->query());
 
-        return view('admin.jobs.trash', compact('jobs'));
+        return view('editor.jobs.trash', compact('jobs'));
     }
 
 
     public function restore($id)
-    {
-        $job = Job_post::onlyTrashed()->findOrFail($id);
+        {
+            $job = Job_post::onlyTrashed()->findOrFail($id);
 
-        $job->restore();
+            $user = Auth::user();
 
-        return back()->with('success', 'Job restored successfully.');
-    }
+            if ($user->isAdmin()) {
+                $job->restore();
+            } elseif ($user->isEditor()) {
+                // Optional restriction
+                // if ($job->user_id !== $user->id) abort(403);
 
-    public function forceDelete($id)
-    {
-        $job = Job_post::onlyTrashed()->findOrFail($id);
+                $job->restore();
+            }
 
-        $job->forceDelete();
-
-        return back()->with('success', 'Job permanently deleted.');
-    }
-
-    public function destroy(Job_post $job)
-    {
-        if ($job->company_logo) {
-            Storage::disk('public')->delete(
-                str_replace('storage/', '', $job->company_logo)
-            );
+            return back()->with('success', 'Job restored successfully.');
         }
 
-        $job->delete();
+    public function forceDelete($id)
+        {
+            $job = Job_post::onlyTrashed()->findOrFail($id);
 
-        return back()->with('success', 'Job deleted');
+            if (!Auth::user()->isAdmin()) {
+                abort(403, 'Only admin can permanently delete.');
+            }
+
+            $job->forceDelete();
+
+            return back()->with('success', 'Job permanently deleted.');
+        }
+
+    // Delete Job
+    public function destroy(Job_post $job)
+    {
+        $user = Auth::user();
+
+        // Admin can delete anything
+        if ($user->isAdmin()) {
+            $job->delete();
+            return back()->with('success', 'Job moved to trash.');
+        }
+
+        // Editor: allow deleting all (WordPress style)
+        if ($user->isEditor()) {
+            $job->delete();
+            return back()->with('success', 'Job moved to trash.');
+        }
+
+        abort(403);
     }
 }

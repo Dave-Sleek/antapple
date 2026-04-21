@@ -4,6 +4,11 @@
 @section('description', Str::limit(strip_tags($job->short_description), 160))
 
 
+@section('canonical')
+    <link rel="canonical" href="{{ route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]) }}">
+@endsection
+
+
 @section('meta')
     @php
         $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
@@ -115,8 +120,11 @@
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     @if ($job->company_logo)
                                         <div class="bg-white rounded-3 p-2 shadow-sm">
-                                            <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }} logo"
-                                                class="rounded-2" style="width: 64px; height: 64px; object-fit: contain;">
+                                            {{-- <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }} logo"
+                                                class="rounded-2" style="width: 64px; height: 64px; object-fit: contain;"> --}}
+                                            <img src="{{ asset('storage/' . $job->company_logo) }}"
+                                                alt="{{ $job->company_name }} logo" class="rounded-2"
+                                                style="width: 64px; height: 64px; object-fit: contain;">
                                         </div>
                                     @endif
                                     <div>
@@ -349,7 +357,10 @@
                         </h5>
                         <div class="d-flex align-items-center gap-3 mb-3">
                             @if ($job->company_logo)
-                                <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
+                                {{-- <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
+                                    class="rounded-3"
+                                    style="width: 60px; height: 60px; object-fit: contain; background: #f8f9fa; padding: 8px;"> --}}
+                                <img src="{{ asset('storage/' . $job->company_logo) }}" alt="{{ $job->company_name }}"
                                     class="rounded-3"
                                     style="width: 60px; height: 60px; object-fit: contain; background: #f8f9fa; padding: 8px;">
                             @endif
@@ -588,6 +599,11 @@
                                 (optional)</label>
                             <textarea class="form-control" id="additionalInfo" name="message" rows="3"
                                 placeholder="Please provide any additional information..."></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer border-0">

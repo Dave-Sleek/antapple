@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Editor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -41,7 +41,7 @@ class CategoryController extends Controller
         // Get categories with jobs (for stats)
         $activeCategories = $categories->where('jobs_count', '>', 0)->count();
         
-        return view('admin.categories.index', compact('categories', 'totalJobs', 'activeCategories', 'categoriesWithActiveJobs'));
+        return view('editor.categories.index', compact('categories', 'totalJobs', 'activeCategories', 'categoriesWithActiveJobs'));
     }
 
     /**
@@ -67,7 +67,7 @@ class CategoryController extends Controller
                 'is_active' => $validated['is_active'] ?? true,
             ]);
 
-            return redirect()->route('admin.categories.index')
+            return redirect()->route('categories.index')
                 ->with('success', 'Category "' . $category->name . '" created successfully!');
 
         } catch (\Exception $e) {
@@ -108,7 +108,7 @@ class CategoryController extends Controller
 
             $message = 'Category "' . $oldName . '" has been updated to "' . $category->name . '" successfully!';
             
-            return redirect()->route('admin.categories.index')
+            return redirect()->route('categories.index')
                 ->with('success', $message);
 
         } catch (\Exception $e) {

@@ -76,11 +76,16 @@ class AuthController extends Controller
             ]);
 
             // Redirect based on role
-            if ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            }
+            switch (strtolower($user->role)) {
+                case 'admin':
+                    return redirect()->route('admin.dashboard');
 
-            return redirect()->route('employer.dashboard');
+                case 'editor':
+                    return redirect()->route('editor.dashboard');
+
+                default:
+                    return redirect()->route('employer.dashboard');
+            }
         }
 
         RateLimiter::hit($key);

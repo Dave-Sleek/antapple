@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\JobAlert;
 use App\Mail\JobAlertMail;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class EmployerController extends Controller
 {
@@ -198,8 +199,9 @@ class EmployerController extends Controller
 
         if ($request->hasFile('company_logo')) {
             $path = $request->file('company_logo')->store('logos', 'public');
-            $data['company_logo'] = 'storage/' . $path;
+            $data['company_logo'] = $path; // e.g. "logos/filename.png"
         }
+
 
         $data['uuid'] = (string) Str::uuid();
         $data['user_id'] = $user->id;
@@ -231,6 +233,14 @@ class EmployerController extends Controller
         }
 
         $job = Job_post::create($data);
+
+        // Flush sitemap cache to reflect new job
+        Cache::flush();
+
+        // Ping Google to update sitemap
+        Http::get('https://www.google.com/ping', [
+            'sitemap' => url('/sitemap.xml')
+        ]);
         // Job_post::create($data);
 
         /*

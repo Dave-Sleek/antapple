@@ -2,6 +2,10 @@
 
 @section('title', 'Sproutplex – Verified Job Opportunities')
 
+{{-- @section('canonical')
+    <link rel="canonical" href="{{ route('jobs.index') }}">
+@endsection --}}
+
 @section('content')
 
     <div class="container">
@@ -238,7 +242,7 @@
             <div class="mb-4 p-3 bg-light rounded-3 border">
 
                 <small class="text-muted fw-semibold d-block mb-2">
-                    🔍 People also searched
+                    <i class="bi bi-search"></i> People also searched
                 </small>
 
                 <div class="d-flex flex-wrap gap-2">
@@ -261,7 +265,7 @@
             <div class="mb-5">
 
                 <h5 class="fw-bold mb-3 text-danger">
-                    🔥 Hot Jobs Today
+                    <i class="bi bi-fire"></i> Hot Jobs Today
                 </h5>
 
                 <div class="row g-3">
@@ -277,12 +281,16 @@
                                     <div class="card-body">
 
                                         <span class="badge bg-danger mb-2">
-                                            🔥 Trending
+                                            <i class="bi bi-fire"></i> Trending
                                         </span>
 
                                         <h6 class="fw-bold mb-1">
                                             @if ($job->company_logo)
-                                                <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
+                                                {{-- <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
+                                                    class="rounded-circle border border-success border-2"
+                                                    style="width: 40px; height: 40px; object-fit: cover;"> --}}
+                                                <img src="{{ asset('storage/' . $job->company_logo) }}"
+                                                    alt="{{ $job->company_name }}"
                                                     class="rounded-circle border border-success border-2"
                                                     style="width: 40px; height: 40px; object-fit: cover;">
                                             @endif
@@ -348,9 +356,13 @@
                                         {{-- Company Logo --}}
                                         <div class="d-flex align-items-center gap-3 mb-3">
                                             @if ($job->company_logo)
-                                                <img src="{{ asset($job->company_logo) }}"
+                                                {{-- <img src="{{ asset($job->company_logo) }}"
                                                     alt="{{ $job->company_name }}" class="rounded-3"
-                                                    style="width:50px;height:50px;object-fit:contain;">
+                                                    style="width:50px;height:50px;object-fit:contain;"> --}}
+                                                <img src="{{ asset('storage/' . $job->company_logo) }}"
+                                                    alt="{{ $job->company_name }}"
+                                                    class="rounded-circle border border-success border-2"
+                                                    style="width: 40px; height: 40px; object-fit: cover;">
                                             @endif
 
                                             <div>
@@ -388,18 +400,12 @@
                                         @if ($job->salary_range)
                                             <div class="mb-3">
                                                 <span class="fw-semibold text-success">
-                                                    <i class="bi bi-currency-dollar me-1"></i>
                                                     {{ $job->salary_range }}
                                                 </span>
                                             </div>
                                         @endif
 
                                         {{-- CTA --}}
-                                        {{-- <a href="{{ route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]) }}"
-                                            class="btn btn-outline-success btn-sm rounded-pill px-3">
-                                            View Details
-                                        </a> --}}
-
                                         @if (!$job->isExpired())
                                             <a href="{{ route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]) }}"
                                                 class="btn btn-success rounded-pill px-4 shadow-sm">
@@ -463,11 +469,11 @@
             </section>
         @endif
 
-
         @php
             $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
             $shareText = $job->title . ' at ' . $job->company_name;
         @endphp
+
         @if ($interestedJobs->count())
             <section class="pt-4 pb-5">
                 <div class="container">
@@ -492,9 +498,10 @@
                                         {{-- Company Logo --}}
                                         <div class="d-flex align-items-center gap-3 mb-3">
                                             @if ($job->company_logo)
-                                                <img src="{{ asset($job->company_logo) }}"
-                                                    alt="{{ $job->company_name }}" class="rounded-3"
-                                                    style="width:50px;height:50px;object-fit:contain;">
+                                                <img src="{{ asset('storage/' . $job->company_logo) }}"
+                                                    alt="{{ $job->company_name }}"
+                                                    class="rounded-circle border border-success border-2"
+                                                    style="width: 40px; height: 40px; object-fit: cover;">
                                             @endif
 
                                             <div>
@@ -532,17 +539,12 @@
                                         @if ($job->salary_range)
                                             <div class="mb-3">
                                                 <span class="fw-semibold text-success">
-                                                    <i class="bi bi-currency-dollar me-1"></i>
                                                     {{ $job->salary_range }}
                                                 </span>
                                             </div>
                                         @endif
 
                                         {{-- CTA --}}
-                                        {{-- <a href="{{ route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]) }}"
-                                            class="btn btn-outline-success btn-sm rounded-pill px-3">
-                                            View Details
-                                        </a> --}}
                                         @if (!$job->isExpired())
                                             <a href="{{ route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]) }}"
                                                 class="btn btn-success rounded-pill px-4 shadow-sm">
@@ -636,9 +638,10 @@
                                         {{-- Company Logo --}}
                                         <div class="d-flex align-items-center gap-3 mb-3">
                                             @if ($job->company_logo)
-                                                <img src="{{ asset($job->company_logo) }}"
-                                                    alt="{{ $job->company_name }}" class="rounded-3"
-                                                    style="width:50px;height:50px;object-fit:contain;">
+                                                <img src="{{ asset('storage/' . $job->company_logo) }}"
+                                                    alt="{{ $job->company_name }}"
+                                                    class="rounded-circle border border-success border-2"
+                                                    style="width: 40px; height: 40px; object-fit: cover;">
                                             @endif
 
                                             <div>
@@ -676,7 +679,6 @@
                                         @if ($job->salary_range)
                                             <div class="mb-3">
                                                 <span class="fw-semibold text-success">
-                                                    <i class="bi bi-currency-dollar me-1"></i>
                                                     {{ $job->salary_range }}
                                                 </span>
                                             </div>
@@ -780,9 +782,10 @@
                                         {{-- Company Logo --}}
                                         <div class="d-flex align-items-center gap-3 mb-3">
                                             @if ($job->company_logo)
-                                                <img src="{{ asset($job->company_logo) }}"
-                                                    alt="{{ $job->company_name }}" class="rounded-3"
-                                                    style="width:50px;height:50px;object-fit:contain;">
+                                                <img src="{{ asset('storage/' . $job->company_logo) }}"
+                                                    alt="{{ $job->company_name }}"
+                                                    class="rounded-circle border border-success border-2"
+                                                    style="width: 40px; height: 40px; object-fit: cover;">
                                             @endif
 
                                             <div>
@@ -820,17 +823,12 @@
                                         @if ($job->salary_range)
                                             <div class="mb-3">
                                                 <span class="fw-semibold text-success">
-                                                    <i class="bi bi-currency-dollar me-1"></i>
                                                     {{ $job->salary_range }}
                                                 </span>
                                             </div>
                                         @endif
 
                                         {{-- CTA --}}
-                                        {{-- <a href="{{ route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]) }}"
-                                            class="btn btn-outline-success btn-sm rounded-pill px-3">
-                                            View Details
-                                        </a> --}}
                                         @if (!$job->isExpired())
                                             <a href="{{ route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]) }}"
                                                 class="btn btn-success rounded-pill px-4 shadow-sm">

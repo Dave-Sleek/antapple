@@ -298,112 +298,118 @@
                                 </div>
 
                                 {{-- reCAPTCHA --}}
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="recaptcha-wrapper">
                                         {!! NoCaptcha::display() !!}
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                {{-- Submit Button --}}
                                 <div class="col-12">
-                                    <button type="submit" class="btn-submit" id="submitBtn">
-                                        <span class="btn-text">Send Message</span>
-                                        <i class="bi bi-send ms-2"></i>
-                                        <div class="btn-glow"></div>
-                                    </button>
-                                </div>
-
-                                {{-- Privacy Notice --}}
-                                <div class="col-12">
-                                    <p class="privacy-notice text-center">
-                                        <i class="bi bi-shield-check text-success me-1"></i>
-                                        Your information is secure and will not be shared with third parties.
-                                        By submitting, you agree to our <a href="{{ route('privacy') }}">Privacy
-                                            Policy</a>.
-                                    </p>
+                                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}">
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        {{-- Premium FAQ Section --}}
-        <div class="faq-premium-section mt-5">
-            <div class="text-center mb-4">
-                <span class="badge bg-success-subtle text-success px-4 py-2 rounded-pill mb-3">
-                    <i class="bi bi-question-circle me-2"></i>FAQ
-                </span>
-                <h3 class="fw-bold">Frequently Asked Questions</h3>
-                <p class="text-muted">Quick answers to common inquiries</p>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="faq-item">
-                        <h6><i class="bi bi-clock-history text-success me-2"></i> How quickly do you respond?</h6>
-                        <p class="text-muted">We typically respond to all inquiries within 24 hours during business days.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="faq-item">
-                        <h6><i class="bi bi-briefcase text-success me-2"></i> Do you offer partnership opportunities?</h6>
-                        <p class="text-muted">Yes! We're always open to partnerships. Please use the form above with
-                            "Partnership" as subject.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="faq-item">
-                        <h6><i class="bi bi-flag text-success me-2"></i> How do I report a job posting?</h6>
-                        <p class="text-muted">Use the contact form with "Report Issue" template or flag the job directly on
-                            its page.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="faq-item">
-                        <h6><i class="bi bi-cash text-success me-2"></i> I have a billing question</h6>
-                        <p class="text-muted">For billing inquiries, please include your transaction reference for faster
-                            assistance.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+                            {{-- Submit Button --}}
+                            <div class="col-12">
+                                <button type="submit" class="btn-submit" id="submitBtn">
+                                    <span class="btn-text">Send Message</span>
+                                    <i class="bi bi-send ms-2"></i>
+                                    <div class="btn-glow"></div>
+                                </button>
+                            </div>
 
-        {{-- Premium Map Section --}}
-        <div class="map-premium-section mt-5">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h4 class="fw-bold mb-3">Visit Our Office</h4>
-                    <p class="text-muted mb-4">We'd love to meet you in person. Our doors are open during business hours.
-                    </p>
-                    <div class="office-details">
-                        <div class="detail">
-                            <i class="bi bi-building"></i>
-                            <span>Sproutplex Jobs Headquarters</span>
-                        </div>
-                        <div class="detail">
-                            <i class="bi bi-pin-map"></i>
-                            <span>Central Business District, Abuja, Nigeria</span>
-                        </div>
-                        <div class="detail">
-                            <i class="bi bi-clock"></i>
-                            <span>Monday - Friday, 9:00 AM - 6:00 PM</span>
-                        </div>
+                            {{-- Privacy Notice --}}
+                            <div class="col-12">
+                                <p class="privacy-notice text-center">
+                                    <i class="bi bi-shield-check text-success me-1"></i>
+                                    Your information is secure and will not be shared with third parties.
+                                    By submitting, you agree to our <a href="{{ route('privacy') }}">Privacy
+                                        Policy</a>.
+                                </p>
+                            </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="map-placeholder">
-                        <i class="bi bi-geo-alt"></i>
-                        <span>Interactive Map</span>
-                        <small>Abuja, Nigeria</small>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    {!! NoCaptcha::renderJs() !!}
+    {{-- Premium FAQ Section --}}
+    <div class="faq-premium-section mt-5">
+        <div class="text-center mb-4">
+            <span class="badge bg-success-subtle text-success px-4 py-2 rounded-pill mb-3">
+                <i class="bi bi-question-circle me-2"></i>FAQ
+            </span>
+            <h3 class="fw-bold">Frequently Asked Questions</h3>
+            <p class="text-muted">Quick answers to common inquiries</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="faq-item">
+                    <h6><i class="bi bi-clock-history text-success me-2"></i> How quickly do you respond?</h6>
+                    <p class="text-muted">We typically respond to all inquiries within 24 hours during business days.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="faq-item">
+                    <h6><i class="bi bi-briefcase text-success me-2"></i> Do you offer partnership opportunities?</h6>
+                    <p class="text-muted">Yes! We're always open to partnerships. Please use the form above with
+                        "Partnership" as subject.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="faq-item">
+                    <h6><i class="bi bi-flag text-success me-2"></i> How do I report a job posting?</h6>
+                    <p class="text-muted">Use the contact form with "Report Issue" template or flag the job directly on
+                        its page.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="faq-item">
+                    <h6><i class="bi bi-cash text-success me-2"></i> I have a billing question</h6>
+                    <p class="text-muted">For billing inquiries, please include your transaction reference for faster
+                        assistance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Premium Map Section --}}
+    <div class="map-premium-section mt-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h4 class="fw-bold mb-3">Visit Our Office</h4>
+                <p class="text-muted mb-4">We'd love to meet you in person. Our doors are open during business hours.
+                </p>
+                <div class="office-details">
+                    <div class="detail">
+                        <i class="bi bi-building"></i>
+                        <span>Sproutplex Jobs Headquarters</span>
+                    </div>
+                    <div class="detail">
+                        <i class="bi bi-pin-map"></i>
+                        <span>Central Business District, Abuja, Nigeria</span>
+                    </div>
+                    <div class="detail">
+                        <i class="bi bi-clock"></i>
+                        <span>Monday - Friday, 9:00 AM - 6:00 PM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="map-placeholder">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>Interactive Map</span>
+                    <small>Abuja, Nigeria</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {{-- {!! NoCaptcha::renderJs() !!} --}}
 @endsection
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">

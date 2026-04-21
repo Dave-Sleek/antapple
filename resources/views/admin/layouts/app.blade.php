@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel — AntApple</title>
+    <title>Admin Panel — Sproutplex</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -408,7 +408,7 @@
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="{{ route('admin.jobs.index') }}">
                 <i class="bi bi-grid-fill me-2" style="color: #10b981;"></i>
-                AntApple Admin
+                Sproutplex Admin
             </a>
 
             <div class="d-flex align-items-center gap-3">
@@ -471,7 +471,7 @@
                                 @endforelse
                             </div>
 
-                            @if (auth()->user()->notifications->count() > 5)
+                            @if (auth()->user()->notifications->count() > 4)
                                 <div class="notification-footer">
                                     <a href="/notifications" class="view-all">
                                         View all notifications <i class="bi bi-arrow-right"></i>
@@ -506,6 +506,7 @@
                             ['route' => 'admin.dashboard', 'icon' => 'bi-speedometer2', 'label' => 'Dashboard'],
                             ['route' => 'admin.jobs.pending', 'icon' => 'bi-clock', 'label' => 'Pending Jobs'],
                             ['route' => 'admin.jobs.index', 'icon' => 'bi-briefcase', 'label' => 'Jobs Overview'],
+                            ['route' => 'admin.categories.index', 'icon' => 'bi-tags', 'label' => 'Manage Categories'],
                             [
                                 'route' => 'admin.opportunities.index',
                                 'icon' => 'bi-briefcase',
@@ -533,30 +534,38 @@
                             ['route' => 'admin.system-status', 'icon' => 'bi-cpu', 'label' => 'System Monitor'],
                             ['route' => 'admin.system.status', 'icon' => 'bi-database', 'label' => 'Database Monitor'],
                         ];
+
+                        $editorLinks = [
+                            ['route' => 'admin.jobs.index', 'icon' => 'bi-briefcase', 'label' => 'Jobs Overview'],
+                            ['route' => 'admin.categories.index', 'icon' => 'bi-tags', 'label' => 'Manage Categories'],
+                        ];
+
+                        $links = auth()->user()->role === 'editor' ? $editorLinks : $adminLinks;
                     @endphp
 
-                    @foreach ($adminLinks as $link)
-                        <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center {{ request()->routeIs($link['route'] . '*') ? 'active fw-bold' : '' }}"
-                                href="{{ route($link['route']) }}">
-                                <i class="bi {{ $link['icon'] }} me-2"></i>
-                                {{ $link['label'] }}
-                            </a>
-                        </li>
-                    @endforeach
+                    <ul class="nav flex-column gap-2">
+                        @foreach ($links as $link)
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center {{ request()->routeIs($link['route'] . '*') ? 'active fw-bold' : '' }}"
+                                    href="{{ route($link['route']) }}">
+                                    <i class="bi {{ $link['icon'] }} me-2"></i>
+                                    {{ $link['label'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
 
-                </ul>
+                    {{-- Optional: Logout button at bottom --}}
 
-                {{-- Optional: Logout button at bottom --}}
-
-                <div class="mt-auto pt-3 border-top">
-                    <a class="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center"
-                        href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="bi bi-box-arrow-right me-2"></i> Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-                </div>
+                    <div class="mt-auto pt-3 border-top">
+                        <a class="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center"
+                            href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf
+                        </form>
+                    </div>
             </aside>
 
             {{-- Main Content --}}

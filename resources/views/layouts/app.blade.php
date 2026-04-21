@@ -22,12 +22,23 @@
     <link rel="manifest" href="favicon/site.webmanifest" />
 
 
+    @hasSection('canonical')
+        @yield('canonical')
+    @else
+        <link rel="canonical" href="{{ url()->current() }}">
+    @endif
+
+
     @yield('meta')
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <!-- Custom Fonts & Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -839,7 +850,6 @@
 <body>
 
     <!-- Navbar -->
-    <!-- Premium Navbar - N1.4 Million Edition -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-premium" id="premiumNav">
         <div class="container">
             <div class="navbar-content d-flex justify-content-between align-items-center w-100">
@@ -927,7 +937,9 @@
                                                         <i class="bi bi-bell"></i>
                                                     </div>
                                                     <div class="item-content">
-                                                        <div class="item-message">{{ $notification->data['message'] }}</div>
+                                                        <div class="item-message">
+                                                            {{ data_get($notification->data, 'message', 'New notification') }}
+                                                        </div>
                                                         <div class="item-time">
                                                             {{ $notification->created_at->diffForHumans() }}
                                                         </div>
@@ -1617,9 +1629,32 @@
     <main class="py-5">
         <div class="container">
             @if (session('success'))
-                <div class="alert alert-success shadow-sm">{{ session('success') }}</div>
+                <script>
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: @json(session('success')),
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                </script>
             @endif
 
+            @if (session('error'))
+                <script>
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: @json(session('error')),
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                </script>
+            @endif
             @yield('content')
         </div>
     </main>

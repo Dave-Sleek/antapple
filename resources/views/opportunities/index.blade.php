@@ -227,7 +227,7 @@
 
                             {{-- Description --}}
                             <p class="opportunity-description">
-                                {{ Str::limit(strip_tags($item->description ?? $item->short_description), 200) }}
+                                {{ Str::limit(html_entity_decode(strip_tags($item->description ?? $item->short_description)), 200) }}
                             </p>
 
                             {{-- Details Row --}}
@@ -240,7 +240,7 @@
                                             {{ \Carbon\Carbon::parse($item->deadline)->format('M d, Y') }}</span>
                                         @if (!\Carbon\Carbon::parse($item->deadline)->isPast())
                                             <span class="days-left">
-                                                ({{ \Carbon\Carbon::now()->diffInDays($item->deadline) }} days left)
+                                                ({{ round(\Carbon\Carbon::now()->diffInDays($item->deadline)) }} days left)
                                             </span>
                                         @endif
                                     </div>

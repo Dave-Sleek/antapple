@@ -69,6 +69,13 @@ class SubscriptionService
             // Notify user of successful payment
             $user->notify(new PaymentAlertNotification($payment));
 
+            // Notify admin of the payment
+            $admin = User::where('role', 'admin')->first();
+            if ($admin) {
+                $admin->notify(new PaymentAlertNotification($payment));
+            }
+
+
             // Mark user as subscribed
             $user->update(['is_subscribed' => true]);
 

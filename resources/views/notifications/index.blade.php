@@ -1,5 +1,6 @@
 @extends('admin.layouts.app')
 
+
 @section('title', 'Notifications - Sproutplex')
 
 @section('content')
@@ -140,16 +141,26 @@
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div class="notification-message">
                                             @php
-                                                $uuid = $notification->data['job_uuid'] ?? null;
-                                                $slug = $notification->data['job_slug'] ?? null;
+                                                $data = is_array($notification->data)
+                                                    ? $notification->data
+                                                    : json_decode($notification->data, true);
+                                                $uuid = $data['job_uuid'] ?? null;
+                                                $slug = $data['job_slug'] ?? null;
                                             @endphp
-                                            <p><strong>Reason:</strong> {{ $notification->data['reason'] }}</p>
-                                            <p><strong>Message:</strong> {{ $notification->data['message'] }}</p>
+
+                                            @if (!empty($data['reason']))
+                                                <p><strong>Reason:</strong> {{ $data['reason'] }}</p>
+                                            @endif
+
+                                            @if (!empty($data['message']))
+                                                <p><strong>Message:</strong> {{ $data['message'] }}</p>
+                                            @endif
+
                                             <p><strong>Job:</strong>
                                                 @if ($uuid && $slug)
                                                     <a href="{{ route('jobs.show', [$uuid, $slug]) }}" target="_blank"
                                                         class="meta-link">
-                                                        {{ $notification->data['job_title'] ?? 'View Job' }}
+                                                        {{ $data['job_title'] ?? 'View Job' }}
                                                     </a>
                                                 @else
                                                     Unknown Job

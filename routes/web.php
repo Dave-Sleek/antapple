@@ -8,7 +8,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\AdminUserController;
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\JobAlertController;
@@ -41,7 +41,11 @@ use App\Http\Controllers\Admin\UserLogController;
 use App\Http\Controllers\Admin\SystemStatusController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\Admin\OpportunityController as AdminOpportunityController;
-
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Editor\CategoryController as EditorCategoryController;
+use App\Http\Controllers\Editor\JobController as EditorJobController;
+use App\Http\Controllers\Editor\OpportunityController as EditorOpportunityController;
+use App\Http\Controllers\SitemapController;
 
 Route::get('/', [JobController::class, 'index']);
 
@@ -55,6 +59,15 @@ Route::get('/', [JobController::class, 'index']);
 | Forgot Password
 |--------------------------------------------------------------------------
 */
+
+// Route::get('/test-mail', function () {
+//     Mail::raw('Brevo test email 🚀', function ($message) {
+//         $message->to('enyidavid87@gmail.com')
+//                 ->subject('Test Email');
+//     });
+
+//     return 'Email sent!';
+// });
 
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
@@ -202,6 +215,13 @@ Route::get('/companies/{user}', [CompanyController::class, 'show'])->name('compa
 
 Route::view('/offline', 'offline')->name('offline');
 
+// Sitemap routes
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
+
+Route::get('/sitemaps/jobs-{year}-{month}.xml', [SitemapController::class, 'jobsByDate']);
+Route::get('/sitemaps/opportunities-{year}-{month}.xml', [SitemapController::class, 'opportunitiesByDate']);
+
+Route::get('/sitemaps/category/{slug}.xml', [SitemapController::class, 'category']);
 
 
 Route::middleware(['auth', 'employer', 'subscribed', 'verified', 'active'])->group(function () {
@@ -349,6 +369,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     // Admin Dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::resource('categories', AdminCategoryController::class);
 
     Route::post('/jobs/{job}/approve', [AdminController::class, 'approve'])->name('approve');
 
@@ -371,6 +392,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Protected routes
     Route::resource('jobs', AdminJobController::class);
     Route::resource('users', AdminUserController::class);
+
     // Route::get('/users/{user}', [AdminUserController::class, 'show'])
     //     ->name('admin.users.show');
 
@@ -414,11 +436,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('/opportunities', AdminOpportunityController::class);
 });
 
-Route::middleware(['auth', 'editor'])->group(function () {
-    Route::resource('categories', CategoryController::class)
-        ->only(['index', 'store']);
-});
-
 Route::middleware('auth')->group(function () {
     // List notifications
     Route::get('/notifications', function () {
@@ -449,37 +466,24 @@ Route::middleware('auth')->group(function () {
     })->name('notifications.read.single');
 });
 
-// Route::get('/admin/dashboard-stats', [AdminController::class, 'stats'])
-//     ->middleware(['auth', 'admin'])
-//     ->name('admin.dashboard.stats');
+// Editor routes
+Route::middleware(['auth', 'editor'])->prefix('editor')->group(function () {
+    // Route::get('/dashboard', function () {
+    //     return view('editor.dashboard');
+    // })->name('editor.dashboard');
 
-// Route::get('/admin/payments/export', [AdminPaymentController::class, 'export'])
-//     ->name('admin.payments.export');
+    Route::get('/dashboard', [\App\Http\Controllers\Editor\EditorController::class, 'dashboard'])->name('editor.dashboard');
 
-// Route::get('/admin/revenue/chart', [AdminPaymentController::class, 'chart'])
-//     ->name('admin.revenue.chart');
+    Route::resource('/editor-jobs', EditorJobController::class)
+        ->parameters(['editor-jobs' => 'job'])
+        ->names('editor-jobs');
+    Route::resource('/categories', EditorCategoryController::class);
 
-// Route::get('/admin/employers/export', [AdminUserController::class, 'exportEmployers'])
-//     ->name('admin.users.employers.export');
-
-// Route::get('jobs/export', [AdminJobController::class, 'export'])
-//     ->name('admin.jobs.export');
-
-// Route::post('/admin/jobs/{job}/toggle-featured', [AdminJobController::class, 'toggleFeatured'])->name('admin.jobs.toggleFeatured');
-
-
-// Route::delete('/employer/jobs/{id}/force-delete', [EmployerController::class, 'forceDelete'])->name('employer.jobs.forceDelete');
-
-// Route::prefix('editor')
-//     ->middleware('editor')
-//     ->group(function () {
-//         Route::resource('categories', CategoryController::class)
-//             ->only(['index', 'store']);
-//     });
-
-
-
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+    Route::get('/jobs/trash', [EditorJobController::class, 'trash'])->name('editor-jobs.trash');
+    Route::patch('/jobs/{user}/restore', [EditorJobController::class, 'restore'])->name('editor-jobs.restore');
+    Route::delete('/jobs/{user}/force-delete', [EditorJobController::class, 'forceDelete'])->name('editor-jobs.forceDelete');
+    Route::resource('editor-opportunities', EditorOpportunityController::class)
+    ->parameters([
+        'editor-opportunities' => 'opportunity'
+    ]);
+});

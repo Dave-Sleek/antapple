@@ -15,14 +15,17 @@ class EditorOnly
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
+        {
+            if (!Auth::check()) {
+                return redirect()->route('login');
+            }
 
-        if (Auth::check() && Auth::user()->role === 'editor') {
+            $role = strtolower(Auth::user()->role);
+
+            if (!in_array($role, ['editor', 'admin'])) {
+                abort(403, 'Unauthorized access.');
+            }
+
             return $next($request);
         }
-        abort(403);
-        // return $next($request); --- IGNORE ---
-
-        // return $next($request);
-    }
 }

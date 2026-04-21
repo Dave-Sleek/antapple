@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="container-fluid py-5 px-4">
@@ -59,7 +59,7 @@
                         <p class="header-subtitle">Add a new job category to the system</p>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.categories.store') }}" id="categoryForm">
+                        <form method="POST" action="{{ route('categories.store') }}" id="categoryForm">
                             @csrf
                             <div class="premium-input">
                                 <div class="input-wrapper">
@@ -169,7 +169,7 @@
                                                 title="Edit Category">
                                                 <i class="bi bi-pencil"></i>
                                             </button>
-                                            <form action="{{ route('admin.categories.destroy', $category->id) }}"
+                                            <form action="{{ route('categories.destroy', $category->id) }}"
                                                 method="POST" class="delete-form d-inline"
                                                 onsubmit="return confirm('Delete this category? This action cannot be undone.')">
                                                 @csrf
@@ -964,7 +964,7 @@
     // Edit category
     function editCategory(id, name, isActive, color) {
         const form = document.getElementById('editCategoryForm');
-        form.action = `/admin/categories/${id}`;
+        form.action = `/editor/categories/${id}`;
 
         document.getElementById('editCategoryName').value = name;
         document.getElementById('editCategoryActive').checked = isActive;

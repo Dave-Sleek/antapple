@@ -1,7 +1,86 @@
 @extends('layouts.app')
+<meta name="robots" content="index, follow">
+{{-- <link rel="canonical" href="{{ $url }}"> --}}
 
-@section('title', $opportunity->title . ' - AntApple Opportunities')
+@section('title', $opportunity->title . ' - Sproutplex Opportunities')
 @section('description', Str::limit(strip_tags($opportunity->description), 160))
+
+
+@section('meta')
+    @php
+        $url = route('opportunities.show', [
+            'uuid' => $opportunity->uuid,
+            'slug' => $opportunity->slug,
+        ]);
+
+        $title = $opportunity->title;
+        $description = Str::limit(strip_tags($opportunity->description), 160);
+        $image = $opportunity->image ? asset($opportunity->image) : asset('images/opportunity-default.png');
+    @endphp
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $url }}">
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:image" content="{{ $image }}">
+    <meta property="og:site_name" content="{{ config('app.name') }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ $description }}">
+    <meta name="twitter:image" content="{{ $image }}">
+@endsection
+
+
+@php
+    $schema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'CreativeWork', // flexible for all opportunity types
+        'name' => $opportunity->title,
+        'description' => strip_tags($opportunity->description),
+        'url' => $url,
+        'datePublished' => $opportunity->created_at->toDateString(),
+        'provider' => [
+            '@type' => 'Organization',
+            'name' => $opportunity->provider_name ?? config('app.name'),
+        ],
+    ];
+
+    // Deadline (very important for opportunities)
+    if ($opportunity->deadline) {
+        $schema['validThrough'] = $opportunity->deadline->toDateString();
+    }
+
+    // Location logic
+    if ($opportunity->is_remote) {
+        $schema['eventAttendanceMode'] = 'https://schema.org/OnlineEventAttendanceMode';
+    } elseif ($opportunity->location) {
+        $schema['location'] = [
+            '@type' => 'Place',
+            'name' => $opportunity->location,
+        ];
+    }
+
+    // Add image if exists
+    if ($opportunity->image) {
+        $schema['image'] = asset($opportunity->image);
+    }
+
+    // Optional: category/type
+    if ($opportunity->type) {
+        $schema['keywords'] = $opportunity->type;
+    }
+
+    if ($opportunity->type === 'internship') {
+        $schema['@type'] = 'JobPosting';
+    } elseif ($opportunity->type === 'scholarship') {
+        $schema['@type'] = 'EducationalOccupationalProgram';
+    }
+@endphp
+
+<script type="application/ld+json">
+{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+</script>
 
 @section('content')
     <div class="container py-5">
@@ -242,9 +321,13 @@
                                             class="detail-value {{ $opportunity->deadline->isPast() ? 'expired' : '' }}">
                                             {{ $opportunity->deadline->format('F d, Y') }}
                                             @if (!$opportunity->deadline->isPast())
-                                                <span class="days-left">
+                                                {{-- <span class="days-left">
                                                     ({{ \Carbon\Carbon::now()->diffInDays($opportunity->deadline) }} days
                                                     left)
+                                                </span> --}}
+                                                <span class="days-left">
+                                                    ({{ round(\Carbon\Carbon::now()->diffInDays($opportunity->deadline)) }}
+                                                    days left)
                                                 </span>
                                             @else
                                                 <span class="expired-badge">Expired</span>
@@ -329,7 +412,7 @@
                     </div>
                 @endif
 
-                <h5>🔥 Trending Opportunities</h5>
+                {{-- <h5>🔥 Trending Opportunities</h5> --}}
 
                 {{-- @foreach ($trending as $item)
                     <p>

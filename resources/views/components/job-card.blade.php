@@ -44,7 +44,10 @@
 
                 {{-- Logo --}}
                 @if ($job->company_logo)
-                    <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
+                    {{-- <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
+                        class="rounded-circle border border-success border-2"
+                        style="width: 40px; height: 40px; object-fit: cover;"> --}}
+                    <img src="{{ asset('storage/' . $job->company_logo) }}" alt="{{ $job->company_name }}"
                         class="rounded-circle border border-success border-2"
                         style="width: 40px; height: 40px; object-fit: cover;">
                 @endif

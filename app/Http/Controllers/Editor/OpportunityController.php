@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Editor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Opportunity;
@@ -31,12 +31,12 @@ class OpportunityController extends Controller
             ? round(($totalClicks / $totalViews) * 100, 1)
             : 0;
         
-        return view('admin.opportunities.index', compact('opportunities', 'totalViews', 'totalClicks', 'conversionRate'));
+        return view('editor.opportunities.index', compact('opportunities', 'totalViews', 'totalClicks', 'conversionRate'));
     }
 
     public function create()
     {
-        return view('admin.opportunities.create');
+        return view('editor.opportunities.create');
     }
 
     public function store(Request $request)
@@ -70,8 +70,7 @@ class OpportunityController extends Controller
 
 
         $opportunity = Opportunity::create($data);
-        Cache::flush(); // Clear cache to reflect new opportunity in sitemap and listings
-
+        Cache::flush(); // Clear cache after creating a job
         // Ping Google to update sitemap
         Http::get('https://www.google.com/ping', [
             'sitemap' => url('/sitemap.xml')
@@ -95,13 +94,13 @@ if ($opportunity && config('services.telegram.bot_token')) {
     );
 }
 
-        return redirect()->route('admin.opportunities.index')
+        return redirect()->route('editor-opportunities.index')
             ->with('success', 'Opportunity created successfully.');
     }
 
     public function edit(Opportunity $opportunity)
     {
-        return view('admin.opportunities.edit', compact('opportunity'));
+        return view('editor.opportunities.edit', compact('opportunity'));
     }
 
     public function update(Request $request, Opportunity $opportunity)
@@ -127,11 +126,11 @@ if ($opportunity && config('services.telegram.bot_token')) {
             $data['image'] = $path;
         }
 
-        $data['slug'] = Str::slug($data['title']);
+        // $data['slug'] = Str::slug($data['title']);
 
         $opportunity->update($data);
 
-        return redirect()->route('admin.opportunities.index')
+        return redirect()->route('editor-opportunities.index')
             ->with('success', 'Opportunity updated successfully.');
     }
 

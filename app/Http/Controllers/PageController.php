@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ContactMessage;
+use Illuminate\Support\Facades\Http;
+use App\Models\User;
+use App\Notifications\ContactMessageNotification;
 
 class PageController extends Controller
 {
@@ -62,28 +65,62 @@ class PageController extends Controller
     }
 
 
-    public function submitContact(Request $request)
-    {
-        // Honeypot check
-        if ($request->filled('website')) {
-            abort(403, 'Spam detected');
-        }
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'message' => 'required|min:10',
-            'g-recaptcha-response' => 'required|captcha',
-        ]);
-
-        ContactMessage::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'message' => $request->message,
-            'ip_address' => $request->ip(),
-            'user_agent' => $request->userAgent(),
-        ]);
-
-        return back()->with('success', 'Your message has been sent successfully!');
+   public function submitContact(Request $request)
+{
+    // Honeypot check
+    if ($request->filled('website')) {
+        abort(403, 'Spam detected');
     }
+
+    $request->validate([
+        'name'            => 'required|string|max:255',
+        'email'           => 'required|email',
+        'message'         => 'required|min:10',
+        'g-recaptcha-response' => 'required',
+    ]);
+
+    // Verify reCAPTCHA
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        'secret'   => config('services.recaptcha.secret'),
+        'response' => $request->input('g-recaptcha-response'),
+        'remoteip' => $request->ip(),
+    ]));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $raw = curl_exec($ch);
+    curl_close($ch);
+
+    $result = json_decode($raw, true);
+
+    if (!($result['success'] ?? false)) {
+        return back()->withErrors(['captcha' => 'reCAPTCHA failed. Try again.']);
+    }
+
+    // Save message
+    $contact = ContactMessage::create([
+        'name'       => $request->name,
+        'email'      => $request->email,
+        'subject'    => $request->subject,
+        'message'    => $request->message,
+        'ip_address' => $request->ip(),
+        'user_agent' => $request->userAgent(),
+    ]);
+
+    // Notify admin
+    $admin = User::where('role', 'admin')->first();
+    if ($admin) {
+        $admin->notify(new ContactMessageNotification($contact));
+    }
+
+    // Optionally notify the user (confirmation email)
+    $user = new User([
+        'email' => $request->email,
+        'name'  => $request->name,
+    ]);
+    $user->notify(new ContactMessageNotification($contact));
+
+    return back()->with('success', 'Your message has been sent successfully!');
+}
 }

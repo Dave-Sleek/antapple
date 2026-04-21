@@ -126,7 +126,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isEditor(): bool
     {
-        return in_array($this->role, ['admin', 'editor']);
+        return $this->role === 'editor';
+    }
+
+    public function isEmployer(): bool
+    {
+        return $this->role === 'employer';
     }
 
     public function subscription()
@@ -171,6 +176,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return match ($this->role) {
             'admin' => route('admin.dashboard'),
             'employer' => route('employer.dashboard'),
+            'editor' => route('editor.dashboard'),
             default => route('profile.notifications'),
         };
     }

@@ -49,7 +49,6 @@ class JobController extends Controller
                 $q->where('category_id', $request->category)
             )
 
-
             // 📍 Location + Remote smart filter
             ->when($request->location, function ($q) use ($request) {
                 if ($request->remote) {
@@ -187,8 +186,6 @@ class JobController extends Controller
             ->limit(5)
             ->pluck('location');
 
-
-
         // Footer Code
 
         // Fallback to random if not enough hot jobs
@@ -213,7 +210,7 @@ class JobController extends Controller
             return redirect()->route('jobs.show', [
                 'uuid' => $job->uuid,
                 'slug' => $job->slug
-            ]);
+            ], 301);
         }
 
 
