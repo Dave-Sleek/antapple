@@ -75,10 +75,6 @@ class JobController extends Controller
                 $q->where('job_type', $request->job_type)
             )
 
-            // $featuredJobs = Job_post::where('is_featured', true)
-            //     ->where('featured_until', '>', now())
-            //     ->get();
-
             ->orderByDesc('is_featured')
             ->latest()
             ->paginate(12) // 🔥 better UX
@@ -118,7 +114,7 @@ class JobController extends Controller
         foreach ($popularCategories as $cat) {
             $peopleAlsoSearched->push([
                 'label' => $cat->name,
-                'url'   => route('jobs.index', ['category' => $cat->slug])
+                'url'   => route('jobs.index', ['category' => $cat->id])
             ]);
         }
 
@@ -202,9 +198,6 @@ class JobController extends Controller
     {
         abort_if($job->status !== 'active', 404);
 
-        // $job = Job_post::with('uuid', $uuid)->firstOrFail();
-        // $slug = request()->route('slug');
-
         // Optional: redirect if slug is wrong (SEO protection)
         if ($job->slug !== $slug) {
             return redirect()->route('jobs.show', [
@@ -275,13 +268,6 @@ class JobController extends Controller
             ->inRandomOrder()
             ->paginate(6, ['*'], 'recommended');
 
-        // return view('jobs.index', compact(
-        //     'jobs',
-        //     'categories',
-        //     'peopleAlsoSearched'
-        // ));
-
-
         return view('jobs.show', compact(
             'job',
             'similarJobs',
@@ -291,21 +277,6 @@ class JobController extends Controller
             'recommendedJobs'
         ));
     }
-
-
-    // public function create()
-    // {
-    //     if (!auth::check()) {
-    //         return redirect()->route('pricing');
-    //     }
-    //     $user = auth::user();
-    //     if (!$user->subscription || !$user->subscription->status = 'approved') {
-    //         return redirect()->route('pricing')
-    //             ->with('error', 'Please choose a subscription plan first');
-    //     }
-    //     return view('employer.create');
-    // }
-
 
 
     /*

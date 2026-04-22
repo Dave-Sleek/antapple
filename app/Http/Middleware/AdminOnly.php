@@ -27,7 +27,7 @@ class AdminOnly
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('admin.login');
+            return route('login');
         }
     }
 }

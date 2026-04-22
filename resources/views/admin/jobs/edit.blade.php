@@ -70,9 +70,7 @@
             <input class="form-control mb-3" name="apply_url" value="{{ old('apply_url', $job->apply_url) }}" required>
 
             {{-- Rich Text Description --}}
-            {{-- <textarea class="form-control mb-3" name="short_description" id="descriptionEditor" rows="6">{{ old('short_description', $job->short_description) }}</textarea> --}}
             <textarea class="form-control mb-3" name="short_description" id="descriptionEditor" rows="6">{{ old('short_description', $job->short_description) }}</textarea>
-
 
             {{-- Deadline --}}
             <input type="date" class="form-control mb-3" name="deadline"

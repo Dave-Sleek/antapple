@@ -41,7 +41,7 @@
                     </div>
                     <h5>Email Us</h5>
                     <p class="text-muted">Our support team is here to help</p>
-                    <a href="mailto:support@Sproutplexjobs.com" class="contact-link">support@Sproutplexjobs.com</a>
+                    <a href="mailto:hello@sproutplex.com" class="contact-link">hello@sproutplex.com</a>
                     <div class="card-glow"></div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="detail-content">
                                     <span class="detail-label">Email Address</span>
-                                    <span class="detail-value">support@Sproutplexjobs.com</span>
+                                    <span class="detail-value">hello@sproutplex.com</span>
                                     <span class="detail-note">We typically respond within 24 hours</span>
                                 </div>
                             </div>
@@ -296,13 +296,6 @@
                                             onclick="setTemplate('report')">Report Issue</button>
                                     </div>
                                 </div>
-
-                                {{-- reCAPTCHA --}}
-                                {{-- <div class="col-12">
-                                    <div class="recaptcha-wrapper">
-                                        {!! NoCaptcha::display() !!}
-                                    </div>
-                                </div> --}}
 
                                 <div class="col-12">
                                     <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}">

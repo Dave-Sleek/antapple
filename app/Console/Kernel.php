@@ -27,9 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // Example: Run your custom notification command every 5 minutes
-        // $schedule->command('app:send-job-alerts')->dailyAt('08:00');
         $schedule->command('alerts:send')->daily();
-        // $schedule->command('alerts:send')->dailyAt('08:00');
         $schedule->command('jobs:expired-featured')->daily();
         $schedule->command('app:expire-subscriptions')->daily();
         $schedule->command('notifications:backfill-job-titles')->dailyAt('02:00');

@@ -185,7 +185,7 @@
                             <h5 class="fw-bold mb-2">Questions About Cookies?</h5>
                             <p class="mb-0">We're happy to explain our cookie usage in more detail.</p>
                         </div>
-                        <a href="mailto:privacy@Sproutplex.com" class="btn-contact">Ask Us</a>
+                        <a href="mailto:hello@sproutplex.com" class="btn-contact">Ask Us</a>
                     </div>
                 </div>
             </div>

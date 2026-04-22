@@ -86,10 +86,6 @@ class Job_post extends Model
         return $this->hasMany(Applicant::class);
     }
 
-    // public function jobViews()
-    // {
-    //     return $this->hasMany(\App\Models\JobView::class, 'job_post_id');
-    // }
     public function jobViews()
     {
         return $this->hasMany(JobView::class);
@@ -99,26 +95,6 @@ class Job_post extends Model
     {
         return $this->deadline && $this->deadline->isPast();
     }
-
-    // protected static function booted()
-    // {
-    //     static::creating(function ($job) {
-
-    //         if (empty($job->uuid)) {
-    //             $job->uuid = (string) Str::uuid();
-    //         }
-
-    //         $baseSlug = Str::slug($job->title);
-    //         $slug = $baseSlug;
-    //         $count = 1;
-
-    //         while (\App\Models\Job_post::where('slug', $slug)->exists()) {
-    //             $slug = $baseSlug . '-' . $count++;
-    //         }
-
-    //         $job->slug = $slug;
-    //     });
-    // }
 
     protected static function booted()
     {
@@ -168,11 +144,4 @@ class Job_post extends Model
         return 'uuid';
     }
 
-    // public function scopeActive($query)
-    // {
-
-    //     return $query->where('status', 'active')
-    //         ->where('is_paid', true)
-    //         ->where('is_approved', true);
-    // }
 }

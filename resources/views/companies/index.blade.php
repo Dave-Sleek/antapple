@@ -142,10 +142,6 @@
                                             class="stat-value">{{ $company->jobs()->where('status', 'active')->count() }}</span>
                                         <span class="stat-label">Active Jobs</span>
                                     </div>
-                                    {{-- <div class="stat-item">
-                                        <span class="stat-value">{{ $company->applicant_count ?? '10-50' }}</span>
-                                        <span class="stat-label">Applicant</span>
-                                    </div> --}}
                                     <div class="stat-item">
                                         <span class="stat-value">{{ $company->created_at->format('Y') ?? '2020' }}</span>
                                         <span class="stat-label">Joined</span>

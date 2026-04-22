@@ -50,9 +50,5 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with(compact('footerCategories', 'footerLocations'));
         });
-
-        // if (config('app.env') === 'local') {
-        //     URL::forceScheme('https');
-        // }
     }
 }

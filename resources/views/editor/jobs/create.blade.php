@@ -65,8 +65,6 @@
                 value="{{ old('apply_url') }}" required>
 
             {{-- Short Description --}}
-            {{-- <textarea class="form-control mb-3" name="short_description" rows="5" placeholder="Short job description"
-                required>{{ old('short_description') }}</textarea> --}}
             <textarea class="form-control mb-3" name="short_description" id="descriptionEditor" rows="5">{{ old('short_description') }}</textarea>
 
             {{-- Deadline --}}
@@ -102,10 +100,17 @@
                 <label class="form-check-label">Remote only</label>
             </div>
 
-
-            <button class="btn btn-success">
-                Publish Job
+            <button type="submit" name="action" value="publish" class="btn btn-success">
+                Publish
             </button>
+
+            <button type="submit" name="action" value="draft" class="btn btn-secondary">
+                Save as Draft
+            </button>
+
+            {{-- <button class="btn btn-success">
+                Publish Job
+            </button> --}}
 
             {{-- Buttons --}}
             <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#previewModal">

@@ -72,19 +72,7 @@
                     </span>
                 </div>
             </div>
-
-            {{-- @foreach ($topJobs as $job)
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm rounded-4 p-4">
-                        <small class="text-muted">Total Platform Views</small>
-                        <span>{{ $job->title }}</span>
-                        <span>{{ number_format($job->views_count) }}</span>
-                    </div>
-                </div>
-            @endforeach --}}
-
         </div>
-
 
         <div class="row text-center mb-4">
             <div class="col-md-3">

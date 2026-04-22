@@ -49,10 +49,6 @@ use App\Http\Controllers\SitemapController;
 
 Route::get('/', [JobController::class, 'index']);
 
-// Route::get('/login', function () {
-//     return redirect()->route('admin.login');
-// })->name('login');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -60,14 +56,6 @@ Route::get('/', [JobController::class, 'index']);
 |--------------------------------------------------------------------------
 */
 
-// Route::get('/test-mail', function () {
-//     Mail::raw('Brevo test email 🚀', function ($message) {
-//         $message->to('enyidavid87@gmail.com')
-//                 ->subject('Test Email');
-//     });
-
-//     return 'Email sent!';
-// });
 
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
@@ -158,7 +146,6 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
 
     $request->fulfill();
@@ -183,7 +170,6 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
-
 Route::get('/jobs/{job}/external-apply', [JobController::class, 'redirect'])
     ->name('jobs.external.apply');
 
@@ -197,14 +183,7 @@ Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
 
 Route::get('/jobs/category/{slug}', [JobController::class, 'category'])->name('jobs.index');
 
-// Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
-// Route::get('/jobs/{job:uuid}', [JobController::class, 'show'])->name('jobs.show');
-
 Route::get('/jobs/{job}/{slug}', [JobController::class, 'show'])->name('jobs.show');
-
-// Public route for company profile
-// Route::get('/companies/{user}', [CompanyController::class, 'show'])
-//     ->name('companies.show');
 
 // Public route to view all companies
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
@@ -320,12 +299,6 @@ Route::post('/alerts/subscribe', [JobAlertController::class, 'subscribe'])
     ->name('alerts.subscribe');
 
 
-// Route::get('/post-job', [EmployerController::class, 'create'])
-//     ->name('jobs.create');
-
-// Route::post('/post-job', [EmployerController::class, 'store'])
-//     ->name('jobs.store');
-
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/cookies', [PageController::class, 'cookies'])->name('cookies');
@@ -339,15 +312,10 @@ Route::post('/contact', [PageController::class, 'submitContact'])->name('contact
 Route::get('/jobs/{job}/apply', JobApplyController::class)->name('jobs.apply');
 
 
-// Route::get('/test-telegram', function () {
-//     return \App\Services\TelegramService::send('Test message from Laravel');
-// });
-
 Route::get('/jobs/{job}/pay', [PaymentController::class, 'initialize'])->name('jobs.pay');
 
 Route::get('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
 
-// Route::post('/jobs/{job}/report', [ReportController::class, 'store']);
 Route::post('/jobs/{job}/report', [App\Http\Controllers\ReportController::class, 'store'])->name('jobs.report');
 
 Route::post('/subscribe', [SubscriberController::class, 'store']);
@@ -392,10 +360,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Protected routes
     Route::resource('jobs', AdminJobController::class);
     Route::resource('users', AdminUserController::class);
-
-    // Route::get('/users/{user}', [AdminUserController::class, 'show'])
-    //     ->name('admin.users.show');
-
 
     Route::get('/dashboard-stats', [AdminController::class, 'stats'])->name('dashboard.stats');
 
@@ -468,10 +432,7 @@ Route::middleware('auth')->group(function () {
 
 // Editor routes
 Route::middleware(['auth', 'editor'])->prefix('editor')->group(function () {
-    // Route::get('/dashboard', function () {
-    //     return view('editor.dashboard');
-    // })->name('editor.dashboard');
-
+    
     Route::get('/dashboard', [\App\Http\Controllers\Editor\EditorController::class, 'dashboard'])->name('editor.dashboard');
 
     Route::resource('/editor-jobs', EditorJobController::class)
@@ -486,4 +447,10 @@ Route::middleware(['auth', 'editor'])->prefix('editor')->group(function () {
     ->parameters([
         'editor-opportunities' => 'opportunity'
     ]);
+
+    Route::get('/jobs/drafts', [EditorJobController::class, 'drafts'])
+    ->name('editor-jobs.drafts');
+
+    Route::post('/editor-jobs/{job}/publish', [EditorJobController::class, 'publish'])
+    ->name('editor-jobs.publish');
 });

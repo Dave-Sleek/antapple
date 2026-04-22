@@ -194,14 +194,12 @@
                     </div>
                 </div>
                 <div class="table-actions">
-                    {{-- <button class="btn-export" onclick="exportJobs()">
-                        <i class="bi bi-download me-2"></i>
-                        Export
-                    </button> --}}
-                    {{-- <a href="{{ route('editor-jobs.export', request()->query()) }}" class="btn-export">
-                        <i class="bi bi-download me-2"></i>
-                        Export
-                    </a> --}}
+
+                    <a href="{{ route('editor-jobs.drafts') }}" class="btn-apply w-100">
+                        <i class="bi bi-clipboard me-2"></i>
+                        Drafts
+                    </a>
+
                     <a href="{{ route('editor-jobs.trash') }}" class="btn-trash">
                         <i class="bi bi-trash me-2"></i>
                         View Trash
@@ -209,6 +207,7 @@
                             {{ \App\Models\Job_post::onlyTrashed()->count() }}
                         </span>
                     </a>
+
                     <div class="table-search">
                         <i class="bi bi-search"></i>
                         <input type="text" id="tableSearch" class="search-input" placeholder="Quick search...">
@@ -227,6 +226,7 @@
                                 <th>Ownership</th>
                                 <th>Analytics</th>
                                 <th>Posted Date</th>
+                                <th>Draft</th>
                                 <th class="text-end">Actions</th>
                             </tr>
                         </thead>
@@ -258,8 +258,6 @@
                                                 @if ($job->company_logo)
                                                     <img src="{{ asset('storage/' . $job->company_logo) }}"
                                                         alt="{{ $job->company_name }}">
-                                                    {{-- <img src="{{ asset($job->company_logo) }}"
-                                                        alt="{{ $job->company_name }}"> --}}
                                                 @else
                                                     <span class="avatar-initials">
                                                         {{ substr($job->company_name, 0, 1) }}
@@ -335,6 +333,12 @@
                                             <span class="date">{{ $job->created_at->format('d M Y') }}</span>
                                             <span class="time">{{ $job->created_at->format('h:i A') }}</span>
                                         </div>
+                                    </td>
+
+                                    <td>
+                                        @if ($job->status === 'draft')
+                                            <span class="badge bg-warning">Draft</span>
+                                        @endif
                                     </td>
 
                                     <td class="text-end">
@@ -417,7 +421,7 @@
                                             </div>
                                             <h5 class="fw-bold mb-2">No Jobs Found</h5>
                                             <p class="text-muted mb-4">No job listings match your current filters</p>
-                                            <a href="{{ route('jobs.create') }}" class="btn-primary-premium">
+                                            <a href="{{ route('editor-jobs.create') }}" class="btn-primary-premium">
                                                 <i class="bi bi-plus-circle me-2"></i>
                                                 Post Your First Job
                                             </a>
@@ -1397,39 +1401,6 @@
             alert(`Job status updated to ${status}`);
         }
     }
-
-    // Toggle featured
-    // function toggleFeatured(jobId) {
-    //     // Implement toggle featured via AJAX
-    //     console.log('Toggling featured:', jobId);
-    // }
-
-    // function toggleFeatured(event, jobId) {
-    //     event.preventDefault();
-
-    //     fetch(`/admin/jobs/${jobId}/toggle-featured`, {
-    //             method: "POST",
-    //             headers: {
-    //                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
-    //                 "Content-Type": "application/json"
-    //             }
-    //         })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-
-    //                 const textElement = document.getElementById(`featured-text-${jobId}`);
-
-    //                 if (data.is_featured) {
-    //                     textElement.innerText = "Remove Featured";
-    //                 } else {
-    //                     textElement.innerText = "Mark as Featured";
-    //                 }
-
-    //             }
-    //         })
-    //         .catch(error => console.error('Error:', error));
-    // }
 
     // Export jobs
     function exportJobs() {

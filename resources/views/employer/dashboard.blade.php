@@ -26,15 +26,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="col-lg-6">
-                    <div class="header-actions">
-                        <a href="{{ route('employer.create') }}" class="btn-primary-premium">
-                            <i class="bi bi-plus-circle me-2"></i>
-                            <span>Post New Job</span>
-                            <div class="btn-glow"></div>
-                        </a>
-                    </div>
-                </div> --}}
+
                 @php
                     $user = auth()->user();
                 @endphp
@@ -197,20 +189,6 @@
                     </div>
                 </div>
             </div>
-
-
-            {{-- @if ($featuredUsed >= $featuredLimit)
-                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#upgradeModal">
-                    <i class="bi bi-star-fill"></i> Mark as Featured
-                </button>
-            @else
-                <form action="{{ route('employer.jobs.feature', $job) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-warning btn-sm">
-                        <i class="bi bi-star-fill"></i> Mark as Featured
-                    </button>
-                </form>
-            @endif --}}
 
             {{--  End of Modal --}}
         @endif

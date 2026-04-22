@@ -412,14 +412,6 @@
                     </div>
                 @endif
 
-                {{-- <h5>🔥 Trending Opportunities</h5> --}}
-
-                {{-- @foreach ($trending as $item)
-                    <p>
-                        {{ $item->title }} — {{ $item->viewsRelation_count }} views
-                    </p>
-                @endforeach --}}
-
                 {{-- Similar Opportunities --}}
                 @if (isset($similarOpportunities) && $similarOpportunities->count())
                     <div class="sidebar-card">

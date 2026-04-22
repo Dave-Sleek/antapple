@@ -120,8 +120,6 @@
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     @if ($job->company_logo)
                                         <div class="bg-white rounded-3 p-2 shadow-sm">
-                                            {{-- <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }} logo"
-                                                class="rounded-2" style="width: 64px; height: 64px; object-fit: contain;"> --}}
                                             <img src="{{ asset('storage/' . $job->company_logo) }}"
                                                 alt="{{ $job->company_name }} logo" class="rounded-2"
                                                 style="width: 64px; height: 64px; object-fit: contain;">
@@ -132,7 +130,7 @@
                                         <div class="d-flex align-items-center gap-2 text-success-dark">
                                             <i class="bi bi-building fs-5"></i>
                                             <span class="fs-5 fw-medium">{{ $job->company_name }}</span>
-                                            {{-- ✅ Verified Tick --}}
+                                            {{-- Verified Tick --}}
                                             @if ($job->is_verified)
                                                 <i class="bi bi-patch-check-fill text-primary" title="Verified Company"
                                                     style="font-size: 14px;"></i>
@@ -309,9 +307,6 @@
                                     <i class="bi bi-send-check me-2"></i>Apply on company website
                                 </a>
 
-                                {{-- <a href="{{ route('jobs.form.apply', $job) }}" class="btn btn-dark">
-                                    Easy Apply
-                                </a> --}}
                                 <p class="text-muted mt-3 small">
                                     <i class="bi bi-shield-check text-success me-1"></i>
                                     You'll be redirected to the company's official application portal
@@ -357,9 +352,6 @@
                         </h5>
                         <div class="d-flex align-items-center gap-3 mb-3">
                             @if ($job->company_logo)
-                                {{-- <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
-                                    class="rounded-3"
-                                    style="width: 60px; height: 60px; object-fit: contain; background: #f8f9fa; padding: 8px;"> --}}
                                 <img src="{{ asset('storage/' . $job->company_logo) }}" alt="{{ $job->company_name }}"
                                     class="rounded-3"
                                     style="width: 60px; height: 60px; object-fit: contain; background: #f8f9fa; padding: 8px;">
@@ -518,8 +510,6 @@
                         'jobs' => $recentJobs,
                     ])
                     {{-- Pagination --}}
-                    {{-- <div class="mt-5 d-flex justify-content-center">
-                        {{ $recentJobs->links() }}</div> --}}
                 @endif
 
                 @if ($recommendedJobs->count())

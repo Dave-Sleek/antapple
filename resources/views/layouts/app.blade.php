@@ -861,11 +861,6 @@
                         <img src="{{ asset('images/sprout_logo.png') }}" class="premium-logo"
                             style="height:52px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
                     </div>
-                    {{-- <div class="brand-text">
-                        <span class="brand-primary">Sproutplex</span>
-                        <span class="brand-secondary">Apple</span>
-                        <span class="brand-jobs">Jobs</span>
-                    </div> --}}
                 </a>
 
                 <!-- Premium Tagline Badge -->
@@ -883,7 +878,7 @@
 
                     @guest
                         <!-- Premium Guest Navigation -->
-                        {{-- <a href="{{ route('companies.index') }}" class="companies-button">
+                        <a href="{{ route('companies.index') }}" class="companies-button">
                             <span class="button-text">Companies</span>
                             <span class="button-icon">→</span>
                             <div class="button-glow"></div>
@@ -893,12 +888,12 @@
                             <span class="button-text">For Employers</span>
                             <span class="button-icon">→</span>
                             <div class="button-glow"></div>
-                        </a> --}}
-                        {{-- <a href="{{ route('opportunities.index') }}" class="companies-button">
+                        </a>
+                        <a href="{{ route('opportunities.index') }}" class="companies-button">
                             <span class="button-text">Opportunities</span>
                             <span class="button-icon">→</span>
                             <div class="button-glow"></div>
-                        </a> --}}
+                        </a>
                     @endguest
 
                     @auth
@@ -1659,36 +1654,6 @@
         </div>
     </main>
 
-    {{-- <form method="POST" action="/subscribe" class="mt-5">
-        @csrf
-
-        <div class="p-4 rounded-4 bg-light">
-            <h5 class="fw-bold mb-1">Job alerts that matter</h5>
-            <p class="text-muted small mb-3">
-                Curated jobs. Zero noise.
-            </p>
-
-            <div class="d-flex gap-2">
-                <input type="email" name="email" class="form-control form-control-lg" placeholder="you@example.com"
-                    required>
-
-                <button class="btn btn-success btn-lg px-4">
-                    <i class="bi bi-bell"></i> Notify me
-                </button>
-            </div>
-
-            <p class="text-muted small mt-2 mb-0">
-                Weekly updates. No spam.
-            </p>
-        </div>
-    </form> --}}
-
-    <!-- Trigger Button (Add this where you want the modal trigger) -->
-    {{-- <button type="button" class="btn btn-success rounded-pill px-4 shadow-sm hover-lift" data-bs-toggle="modal"
-        data-bs-target="#jobAlertsModal">
-        <i class="bi bi-bell-fill me-2"></i> Get Alerts
-    </button> --}}
-
     <!-- Floating Trigger Button -->
     <button type="button" class="btn btn-success rounded-circle shadow-lg floating-alert-btn" data-bs-toggle="modal"
         data-bs-target="#jobAlertsModal">
@@ -2162,11 +2127,8 @@
                 <div class="col-lg-4 col-md-6">
 
                     <div class="d-flex align-items-center mb-3">
-                        {{-- <img src="{{ asset('images/logo.svg') }}" style="height:40px;" class="me-2"> --}}
                         <img src="{{ asset('images/sprout_logo.png') }}" class="premium-logo"
                             style="height:60px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
-
-                        {{-- <h5 class="fw-bold mb-0">Sproutplex Jobs</h5> --}}
                     </div>
 
                     <p class="text-muted small">
@@ -2317,15 +2279,15 @@
 
 
     <!-- PWA Install Button -->
-    {{-- <button id="pwaInstallBtn" class="btn btn-success rounded-pill shadow position-fixed"
+    <button id="pwaInstallBtn" class="btn btn-success rounded-pill shadow position-fixed"
         style="bottom:20px; center:20px; z-index:9999; display:none;">
         <i class="bi bi-download me-1"></i>
         Install Sproutplex Jobs
-    </button> --}}
+    </button>
 
 
     <!-- iOS Instructions Modal -->
-    {{-- <div id="iosInstallModal" class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-none"
+    <div id="iosInstallModal" class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-none"
         style="z-index:10000;">
 
         <div class="bg-white rounded-4 p-4 shadow position-absolute top-50 start-50 translate-middle"
@@ -2342,7 +2304,7 @@
                 Got it
             </button>
         </div>
-    </div> --}}
+    </div>
 
 
     <script>
@@ -2408,12 +2370,6 @@
                 document.getElementById('cookie-banner').style.display = 'none';
             };
     </script>
-
-    <!-- Back to Top Button -->
-    {{-- <button id="backToTop" class="btn btn-success btn-lg rounded-circle shadow-lg"
-        style="position: fixed; top: 40px; right: 40px; display: none; z-index: 9999;">
-        <i class="bi bi-arrow-up"></i>
-    </button> --}}
 
     <!-- Back to Top Button -->
     <button id="backToTop" class="btn btn-lg rounded-circle shadow-lg border-0"

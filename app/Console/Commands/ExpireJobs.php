@@ -12,7 +12,6 @@ class ExpireJobs extends Command
      *
      * @var string
      */
-    // protected $signature = 'app:expire-jobs';
     protected $signature = 'jobs:expire';
 
 
@@ -22,7 +21,6 @@ class ExpireJobs extends Command
      * @var string
      */
     protected $description = 'Expire jobs past deadline';
-    // protected $description = 'Command description';
 
     /**
      * Execute the console command.

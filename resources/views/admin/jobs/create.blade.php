@@ -90,13 +90,6 @@
                 <option value="inactive">Expired</option>
             </select>
 
-
-            {{-- <div class="form-check mb-3">
-                <input type="checkbox" name="is_remote" value="1" class="form-check-input"
-                    {{ request('is_remote') ? 'checked' : '' }}>
-                <label class="form-check-label">Remote only</label>
-            </div> --}}
-
             <div class="form-check mb-3">
                 <input type="checkbox" name="is_remote" value="1" class="form-check-input">
                 <label class="form-check-label">Remote only</label>

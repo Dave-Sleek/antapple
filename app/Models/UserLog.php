@@ -15,12 +15,4 @@ class UserLog extends Model
         'location'
     ];
 
-    // public function isAttack()
-    // {
-    //     return str_contains($this->endpoint, '.env') ||
-    //         str_contains($this->endpoint, 'wp-admin') ||
-    //         str_contains($this->endpoint, 'phpmyadmin') ||
-    //         str_contains($this->endpoint, 'vendor') ||
-    //         str_contains($this->endpoint, 'storage');
-    // }
 }

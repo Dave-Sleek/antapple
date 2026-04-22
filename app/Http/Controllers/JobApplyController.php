@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Job_post;
 use App\Models\JobClick;
 use Illuminate\Http\Request;
-// use App\Notifications\JobAppliedNotification;
 
 
 class JobApplyController extends Controller

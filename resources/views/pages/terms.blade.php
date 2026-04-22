@@ -205,7 +205,7 @@
                                 <i class="bi bi-check-circle me-2"></i>
                                 I Agree & Continue
                             </a>
-                            <a href="mailto:support@Sproutplex.com" class="btn-contact">Contact Support</a>
+                            <a href="mailto:hello@sproutplex.com" class="btn-contact">Contact Support</a>
                         </div>
                     </div>
                 </div>

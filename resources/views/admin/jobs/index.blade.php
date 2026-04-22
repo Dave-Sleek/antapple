@@ -1387,39 +1387,6 @@
         }
     }
 
-    // Toggle featured
-    // function toggleFeatured(jobId) {
-    //     // Implement toggle featured via AJAX
-    //     console.log('Toggling featured:', jobId);
-    // }
-
-    // function toggleFeatured(event, jobId) {
-    //     event.preventDefault();
-
-    //     fetch(`/admin/jobs/${jobId}/toggle-featured`, {
-    //             method: "POST",
-    //             headers: {
-    //                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
-    //                 "Content-Type": "application/json"
-    //             }
-    //         })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-
-    //                 const textElement = document.getElementById(`featured-text-${jobId}`);
-
-    //                 if (data.is_featured) {
-    //                     textElement.innerText = "Remove Featured";
-    //                 } else {
-    //                     textElement.innerText = "Mark as Featured";
-    //                 }
-
-    //             }
-    //         })
-    //         .catch(error => console.error('Error:', error));
-    // }
-
     // Export jobs
     function exportJobs() {
         // Implement export functionality

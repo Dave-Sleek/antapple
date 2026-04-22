@@ -195,7 +195,7 @@
                                     <li><i class="bi bi-check-circle-fill text-success"></i> Opt-out of communications</li>
                                 </ul>
                                 <p class="mt-3">To exercise these rights, contact us at <a
-                                        href="mailto:support@Sproutplex.com" class="text-success">support@Sproutplex.com</a>
+                                        href="mailto:hello@sproutplex.com" class="text-success">hello@sproutplex.com</a>
                                 </p>
                             </div>
                         </div>
@@ -221,7 +221,7 @@
                             <h5 class="fw-bold mb-2">Have Privacy Questions?</h5>
                             <p class="mb-0">Our Data Protection Officer is ready to assist you.</p>
                         </div>
-                        <a href="mailto:privacy@Sproutplex.com" class="btn-contact">Contact DPO</a>
+                        <a href="mailto:hello@sproutplex.com" class="btn-contact">Contact DPO</a>
                     </div>
                 </div>
             </div>

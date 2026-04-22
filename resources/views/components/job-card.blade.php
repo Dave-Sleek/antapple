@@ -44,9 +44,6 @@
 
                 {{-- Logo --}}
                 @if ($job->company_logo)
-                    {{-- <img src="{{ asset($job->company_logo) }}" alt="{{ $job->company_name }}"
-                        class="rounded-circle border border-success border-2"
-                        style="width: 40px; height: 40px; object-fit: cover;"> --}}
                     <img src="{{ asset('storage/' . $job->company_logo) }}" alt="{{ $job->company_name }}"
                         class="rounded-circle border border-success border-2"
                         style="width: 40px; height: 40px; object-fit: cover;">
@@ -59,10 +56,6 @@
 
                         <h6 class="text-success fw-bold mb-0">
                             {{ $job->company_name }}
-
-                            {{-- <a href="{{ route('employer.company.page', $job->user_id) }}" class="text-primary">
-                                {{ $job->user->company_name ?? $job->user->name }}
-                            </a> --}}
                         </h6>
 
                         {{-- ✅ Verified Tick --}}
@@ -121,11 +114,6 @@
                 </span>
             @endif
 
-            {{-- @if ($job->is_remote)
-                <span class="badge bg-info">Remote</span>
-            @endif --}}
-
-
             {{-- Category --}}
             @if ($job->category)
                 <span
@@ -181,12 +169,6 @@
                 line-height: 1;
             }
         </style>
-
-
-        {{-- <p class="text-muted small mb-4 flex-grow-1">
-            {{ Str::limit(html_entity_decode(strip_tags($job->short_description)), 300) }}
-        </p> --}}
-
 
         {{-- CTA & Salary --}}
         <div class="d-flex justify-content-between align-items-center mt-auto">

@@ -274,34 +274,6 @@
                     {{ $opportunities->withQueryString()->links() }}
                 </div>
             @endif
-
-            {{-- Newsletter CTA --}}
-            {{-- <div class="newsletter-cta mt-5">
-                <div class="row align-items-center">
-                    <div class="col-md-7">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="cta-icon">
-                                <i class="bi bi-envelope-paper"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-1">Get New Opportunities Delivered</h5>
-                                <p class="text-muted mb-0">Subscribe to receive weekly updates on new internships,
-                                    scholarships, and grants</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <form class="newsletter-form">
-                            <div class="input-group">
-                                <input type="email" class="form-control" placeholder="Your email address">
-                                <button class="btn-subscribe" type="submit">
-                                    <i class="bi bi-bell"></i> Subscribe
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div> --}}
         @else
             {{-- Premium Empty State --}}
             <div class="empty-state-premium">

@@ -15,12 +15,6 @@
                     preferences</p>
             </div>
             <div class="d-none d-md-block">
-                {{-- <img src="{{ $subscription->logo_url }}" alt="{{ $subscription->company_name ?? $subscription->name }}"
-                    class="company-logo rounded-4 shadow-lg"
-                    style="height:120px; width:120px; object-fit:cover; border:4px solid rgba(255,255,255,0.3);
-                                        transition: transform 0.3s ease, box-shadow 0.3s ease;"
-                    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)';"
-                    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"> --}}
             </div>
         </div>
 

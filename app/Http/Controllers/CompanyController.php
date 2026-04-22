@@ -17,13 +17,7 @@ class CompanyController extends Controller
                 $q->where('status', 'active'); // only companies with active jobs
             });
 
-        // $query = User::where('role', 'employer')->whereHas('jobs', function ($q) {
-        //     $q->where('status', 'active');
-        // })->with(['jobs' => function ($q) {
-        //     $q->where('status', 'active')->select('id', 'user_id', 'is_verified');
-        // }]);
-
-        // 🔍 Search
+        //  Search
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where('name', 'like', "%{$search}%");
@@ -58,18 +52,6 @@ class CompanyController extends Controller
 
         return view('companies.index', compact('companies'));
     }
-
-
-    // Show single company profile with active jobs
-    // public function show(User $user)
-    // {
-    //     $jobs = Job_post::where('user_id', $user->id)
-    //         ->where('status', 'active')
-    //         ->latest()
-    //         ->get();
-
-    //     return view('companies.show', compact('user', 'jobs'));
-    // }
 
     public function show(User $user)
     {

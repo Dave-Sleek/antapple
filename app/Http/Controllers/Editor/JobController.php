@@ -34,99 +34,114 @@ class JobController extends Controller
     |--------------------------------------------------------------------------
     */
     public function store(Request $request)
-    {
-        $data = $request->validate([
-            'title'             => 'required|string|max:255',
-            'company_name'      => 'required|string|max:255',
-            'is_verified'       => 'nullable|boolean',
-            'about_company'     => 'nullable|string|max:2000',
-            'company_logo'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'category_id'       => 'required|exists:categories,id',
-            'job_type'          => 'required',
-            'location'          => 'required',
-            'is_remote'         => 'nullable|boolean',
-            'apply_url'         => 'required|url',
-            'short_description' => 'required',
-            'deadline'          => 'nullable|date',
-            'status'            => 'required|in:active,expired,inactive,draft',
-            'is_featured'       => 'nullable|boolean',
-            'experience_level'  => 'nullable|string',
-            'salary_range'      => 'nullable|string',
-            'source'            => 'nullable|string',
-        ]);
+{
+    $data = $request->validate([
+        'title'             => 'required|string|max:255',
+        'company_name'      => 'required|string|max:255',
+        'is_verified'       => 'nullable|boolean',
+        'about_company'     => 'nullable|string|max:2000',
+        'company_logo'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'category_id'       => 'required|exists:categories,id',
+        'job_type'          => 'required',
+        'location'          => 'required',
+        'is_remote'         => 'nullable|boolean',
+        'apply_url'         => 'required|url',
+        'short_description' => 'required',
+        'deadline'          => 'nullable|date',
+        'is_featured'       => 'nullable|boolean',
+        'experience_level'  => 'nullable|string',
+        'salary_range'      => 'nullable|string',
+        'source'            => 'nullable|string',
+    ]);
 
-        /*
-        | Remote override
-        */
-        if ($request->boolean('is_remote')) {
-            $data['location'] = 'Remote';
-        }
+    /*
+    | Remote override
+    */
+    if ($request->boolean('is_remote')) {
+        $data['location'] = 'Remote';
+    }
 
-        $data['uuid'] = (string) Str::uuid();
-        $data['is_paid'] = true;
-        $data['is_approved'] = true;
+    /*
+    | Draft vs Publish logic
+    */
+    $action = $request->input('action', 'draft');
 
-        /*
-        | Upload logo
-        */
-        if ($request->hasFile('company_logo')) {
-                $path = $request->file('company_logo')->store('logos', 'public');
-                $data['company_logo'] = $path; // e.g. "logos/filename.png"
-            }
+    if ($action === 'publish') {
+        $data['status'] = 'active';
+        $data['published_at'] = now();
+    } else {
+        $data['status'] = 'draft';
+    }
 
+    $data['uuid'] = (string) Str::uuid();
+    $data['is_paid'] = true;
+    $data['is_approved'] = true;
 
-        // $job = Job_post::create($data);
-        $job = Auth::user()->jobs()->create($data);
-        
-        Cache::flush(); // Clear cache after creating a job
+    /*
+    | Upload logo
+    */
+    if ($request->hasFile('company_logo')) {
+        $path = $request->file('company_logo')->store('logos', 'public');
+        $data['company_logo'] = $path;
+    }
 
-        // Ping Google to update sitemap
+    $job = Auth::user()->jobs()->create($data);
+
+    Cache::flush();
+
+    /*
+    | Ping Google ONLY if published
+    */
+    if ($data['status'] === 'active') {
         Http::get('https://www.google.com/ping', [
             'sitemap' => url('/sitemap.xml')
         ]);
+    }
 
-        /*
-        | Email alerts (queue)
-        */
-        // $alerts = JobAlert::where('is_active', true)->get();
+    /*
+    | Email alerts ONLY if published
+    */
+    if ($data['status'] === 'active') {
         $alerts = JobAlert::where('is_active', true)
-            ->where('alert_type', 'job')->get();
+            ->where('alert_type', 'job')
+            ->get();
 
         foreach ($alerts as $alert) {
             Mail::to($alert->email)
                 ->queue(new JobAlertMail(collect([$job]), $alert));
         }
-
-        /*
-        | Telegram notify
-        */
-        if ($job->status === 'active' && config('services.telegram.bot_token')) {
-
-            $message = "🚀 *New Job Posted*\n\n"
-                . "*{$job->title}*\n"
-                . "🏢 {$job->company_name}\n"
-                . "📍 {$job->location}\n"
-                . "💼 {$job->job_type}\n"
-                . "Apply here: "
-                . "🔗 " . route('jobs.show', [
-                        'job' => $job->uuid,
-                        'slug' => \Illuminate\Support\Str::slug($job->title),
-                    ]);
-                // . "🔗 " . route('jobs.show', $job);
-
-            Http::post(
-                "https://api.telegram.org/bot" . config('services.telegram.bot_token') . "/sendMessage",
-                [
-                    'chat_id' => config('services.telegram.chat_id'),
-                    'text' => $message,
-                    'parse_mode' => 'Markdown'
-                ]
-            );
-        }
-
-        return redirect()->route('editor-jobs.index')
-            ->with('success', 'Job posted, alerts sent & Telegram notified!');
     }
+
+    /*
+    | Telegram notify ONLY if published
+    */
+    if ($job->status === 'active' && config('services.telegram.bot_token')) {
+
+        $message = "🚀 *New Job Posted*\n\n"
+            . "*{$job->title}*\n"
+            . "🏢 {$job->company_name}\n"
+            . "📍 {$job->location}\n"
+            . "💼 {$job->job_type}\n"
+            . "🔗 " . route('jobs.show', [
+                'job' => $job->uuid,
+                'slug' => \Illuminate\Support\Str::slug($job->title),
+            ]);
+
+        Http::post(
+            "https://api.telegram.org/bot" . config('services.telegram.bot_token') . "/sendMessage",
+            [
+                'chat_id' => config('services.telegram.chat_id'),
+                'text' => $message,
+                'parse_mode' => 'Markdown'
+            ]
+        );
+    }
+
+    return redirect()->route('editor-jobs.index')
+        ->with('success', $action === 'publish'
+            ? 'Job published successfully!'
+            : 'Draft saved successfully!');
+}
 
 
     /*
@@ -185,14 +200,12 @@ class JobController extends Controller
 
             // delete old
             if ($request->hasFile('company_logo')) {
-                // delete old
                 if ($job->company_logo) {
                     Storage::disk('public')->delete($job->company_logo);
                 }
 
-                // store new
                 $path = $request->file('company_logo')->store('logos', 'public');
-                $data['company_logo'] = $path; // e.g. "logos/company1.png"
+                $data['company_logo'] = $path;
             }
         }
 
@@ -202,18 +215,34 @@ class JobController extends Controller
             ->with('success', 'Job updated successfully!');
     }
     
-    // public function edit(Job_post $job)
-    // {
-    //     return view('editor.jobs.edit', compact('job'));
-    // }
 
-    // public function update(Request $request, Job_post $job)
-    // {
-    //     $job->update($request->all());
+    public function drafts(Request $request)
+        {
+            $query = \App\Models\Job_post::where('status', 'draft')
+                ->with('user')
+                ->latest();
 
-    //     return redirect()->route('ejobs.index')->with('success', 'Updated');
-    // }
+            // Optional search
+            if ($request->filled('search')) {
+                $query->where('title', 'like', '%' . $request->search . '%');
+            }
 
+            $jobs = $query->paginate(20)->appends($request->query());
+
+            return view('editor.jobs.drafts', compact('jobs'));
+        }
+
+    public function publish(\App\Models\Job_post $job)
+        {
+            $job->update([
+                'status' => 'active',
+                'published_at' => now()
+            ]);
+
+            return back()->with('success', 'Job published successfully!');
+        }
+    
+    
      /*
     |--------------------------------------------------------------------------
     | DELETE

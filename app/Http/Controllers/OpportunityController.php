@@ -24,17 +24,17 @@ class OpportunityController extends Controller
             $query->where('title', 'like', "%{$request->search}%");
         }
 
-        // 🎯 Filter by type
+        // Filter by type
         if ($request->type) {
             $query->where('type', $request->type);
         }
 
-        // 📍 Location
+        //  Location
         if ($request->location) {
             $query->where('location', 'like', "%{$request->location}%");
         }
 
-        // 🔥 CATEGORY COUNTS
+        //  CATEGORY COUNTS
         $typeCounts = Opportunity::where('is_active', true)
         ->selectRaw('type, COUNT(*) as total')
         ->groupBy('type')
@@ -83,11 +83,7 @@ class OpportunityController extends Controller
         | HOT OPPORTUNITIES (same type + location)
         |--------------------------------------------------------------------------
         */
-        // $trending = Opportunity::withCount('viewsRelation')
-        //     ->orderByDesc('viewsRelation_count')
-        //     ->take(5)
-        //     ->get();
-        // $opportunity->increment('views');
+        
 
         /*
         |--------------------------------------------------------------------------

@@ -167,12 +167,6 @@ class EmployerController extends Controller
                 return redirect()->route('login');
             }
 
-            // ✅ CHECK LIMIT FIRST (BEFORE ANYTHING)
-            // if ($user->hasReachedJobLimit()) {
-            //     return redirect()->route('employer.dashboard')
-            //         ->with('error', 'You have reached your job posting limit. Upgrade your plan.');
-            // }
-
         $data = $request->validate([
             'title'             => 'required|string|max:255',
             'company_name'      => 'required|string|max:255',
@@ -207,8 +201,6 @@ class EmployerController extends Controller
         $data['user_id'] = $user->id;
         $data['source'] = 'employer';
         $data['is_verified'] = true; // default to not verified
-        // $data['is_featured'] = true; // default to not featured
-
         /*
     |--------------------------------------------------------------------------
     | SMART SUBSCRIPTION LOGIC
@@ -227,7 +219,6 @@ class EmployerController extends Controller
             $data['status'] = 'pending';
             $data['is_paid'] = false;
             $data['is_approved'] = false;
-            // $data['is_featured'] = false;
 
             $successMessage = 'Job created successfully. Awaiting admin approval.';
         }
@@ -241,7 +232,6 @@ class EmployerController extends Controller
         Http::get('https://www.google.com/ping', [
             'sitemap' => url('/sitemap.xml')
         ]);
-        // Job_post::create($data);
 
         /*
         | Email alerts (queue)

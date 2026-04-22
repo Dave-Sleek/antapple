@@ -23,9 +23,4 @@ class Report extends Model
         return $this->belongsTo(Job_post::class, 'job_post_id', 'id');
     }
 
-
-    // public function jobPost()
-    // {
-    //     return $this->belongsTo(Job_post::class, 'job_post_id', 'uuid');
-    // }
 }
