@@ -118,7 +118,7 @@ class JobController extends Controller
         foreach ($popularCategories as $cat) {
             $peopleAlsoSearched->push([
                 'label' => $cat->name,
-                'url'   => route('jobs.index', ['category' => $cat->id])
+                'url'   => route('jobs.index', ['category' => $cat->slug])
             ]);
         }
 
@@ -145,7 +145,7 @@ class JobController extends Controller
         // get top clicked job IDs first
         $hotJobIds = DB::table('job_clicks')
             ->select('job_post_id', DB::raw('COUNT(*) as clicks'))
-            ->whereDate('clicked_at', $today)
+            ->whereDate('created_at', $today)
             ->groupBy('job_post_id')
             ->orderByDesc('clicks')
             ->limit(6)

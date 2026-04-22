@@ -326,10 +326,19 @@
             </div>
         @endif
 
-        @php
+        {{-- @php
             $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
             $shareText = $job->title . ' at ' . $job->company_name;
-        @endphp
+        @endphp --}}
+
+        @foreach ($jobs as $job)
+            @php
+                $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
+                $shareText = $job->title . ' at ' . $job->company_name;
+            @endphp
+
+            <!-- Your job display code here -->
+        @endforeach
 
         {{-- Explore More Opportunities --}}
         @if ($recommendedJobs->count())
@@ -469,10 +478,19 @@
             </section>
         @endif
 
-        @php
+        {{-- @php
             $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
             $shareText = $job->title . ' at ' . $job->company_name;
-        @endphp
+        @endphp --}}
+
+        @foreach ($jobs as $job)
+            @php
+                $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
+                $shareText = $job->title . ' at ' . $job->company_name;
+            @endphp
+
+            <!-- Your job display code here -->
+        @endforeach
 
         @if ($interestedJobs->count())
             <section class="pt-4 pb-5">
@@ -609,10 +627,19 @@
         @endif
 
 
-        @php
+        {{-- @php
             $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
             $shareText = $job->title . ' at ' . $job->company_name;
-        @endphp
+        @endphp --}}
+
+        @foreach ($jobs as $job)
+            @php
+                $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
+                $shareText = $job->title . ' at ' . $job->company_name;
+            @endphp
+
+            <!-- Your job display code here -->
+        @endforeach
 
         @if ($abujaJobs->count())
             <section class="pt-4 pb-5">
@@ -753,10 +780,19 @@
             </section>
         @endif
 
-        @php
+        {{-- @php
             $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
             $shareText = $job->title . ' at ' . $job->company_name;
-        @endphp
+        @endphp --}}
+
+        @foreach ($jobs as $job)
+            @php
+                $jobUrl = route('jobs.show', ['job' => $job->uuid, 'slug' => $job->slug]);
+                $shareText = $job->title . ' at ' . $job->company_name;
+            @endphp
+
+            <!-- Your job display code here -->
+        @endforeach
 
         @if ($lagosJobs->count())
             <section class="pt-4 pb-5">

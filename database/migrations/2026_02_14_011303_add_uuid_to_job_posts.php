@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('job_posts', function (Blueprint $table) {
-            $table->uuid('uuid')->unique()->after('id');
+            // Check if column doesn't exist before adding
+            if (!Schema::hasColumn('job_posts', 'uuid')) {
+                $table->uuid('uuid')->unique()->after('id');
+            }
         });
     }
 
@@ -22,7 +25,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('job_posts', function (Blueprint $table) {
-            //
+            // Drop the column if it exists
+            if (Schema::hasColumn('job_posts', 'uuid')) {
+                $table->dropColumn('uuid');
+            }
         });
     }
 };

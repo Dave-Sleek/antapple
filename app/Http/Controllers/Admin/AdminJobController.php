@@ -152,7 +152,7 @@ class AdminJobController extends Controller
             'apply_url'         => 'required|url',
             'short_description' => 'required',
             'deadline'          => 'nullable|date',
-            'status'            => 'required|in:active,expired,inactive',
+            'status'            => 'required|in:active,expired,inactive,draft',
             'is_featured'       => 'nullable|boolean',
             'experience_level'  => 'nullable|string',
             'salary_range'      => 'nullable|string',
@@ -211,7 +211,7 @@ class AdminJobController extends Controller
                 . "📍 {$job->location}\n"
                 . "💼 {$job->job_type}\n"
                 . "Apply here: "
-                . "🔗 " . route('jobs.show', $job);
+                . "🔗 " . route('jobs.show', ['job' => $job, 'slug' => $job->slug]);
 
             Http::post(
                 "https://api.telegram.org/bot" . config('services.telegram.bot_token') . "/sendMessage",
@@ -260,7 +260,7 @@ class AdminJobController extends Controller
             'apply_url'         => 'required|url',
             'short_description' => 'required',
             'deadline'          => 'nullable|date',
-            'status'            => 'required|in:active,inactive',
+            'status'            => 'required|in:active,expired,inactive,draft',
             'is_featured'       => 'nullable|boolean',
             'experience_level'  => 'nullable|string',
             'salary_range'      => 'nullable|string',

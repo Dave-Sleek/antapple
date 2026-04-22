@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('job_posts', function (Blueprint $table) {
-            // Check if column doesn't exist before adding
-            if (!Schema::hasColumn('job_posts', 'user_id')) {
-                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            // Only add published_at column if it doesn't exist
+            if (!Schema::hasColumn('job_posts', 'published_at')) {
+                $table->timestamp('published_at')->nullable();
             }
         });
     }
@@ -25,10 +25,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('job_posts', function (Blueprint $table) {
-            // Drop foreign key first, then the column
-            if (Schema::hasColumn('job_posts', 'user_id')) {
-                $table->dropForeign(['user_id']);
-                $table->dropColumn('user_id');
+            if (Schema::hasColumn('job_posts', 'published_at')) {
+                $table->dropColumn('published_at');
             }
         });
     }
